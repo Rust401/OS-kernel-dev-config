@@ -1,15 +1,15 @@
 #!/bin/bash
 
 TARGET=$1
-VALID=0
+VALID="false"
 
 #add new linux-kernel dir here
 if [ $TARGET = "qcom414" ]; then
 LNX_PATH="/home/ruty/ext/qcom414/msm-4.14"
-VALID=1
+VALID="true"
 fi
 
-if [ $VALID = "1" ]; then
+if [ $VALID = "true" ]; then
 
 #find paths for files to be linked
 echo start to generate cscope.files in $LNX_PATH
