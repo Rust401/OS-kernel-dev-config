@@ -9,6 +9,12 @@ LNX_PATH="/home/ruty/ext/qcom414/msm-4.14"
 VALID="true"
 fi
 
+if [ $TARGET = "oh510" ]; then
+LNX_PATH="/home/ruty/ext/linux-kernel/linux"
+VALID="true"
+fi
+
+
 if [ $VALID = "true" ]; then
 
 #find paths for files to be linked
