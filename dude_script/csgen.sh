@@ -25,7 +25,6 @@ find $LNX_PATH                                                                  
 	-path "$LNX_PATH/tmp*" -prune -o                                           \
 	-path "$LNX_PATH/Documentation*" -prune -o                                 \
 	-path "$LNX_PATH/scripts*" -prune -o                                       \
-	-path "$LNX_PATH/drivers*" -prune -o                                       \
 	-name "*.[chxsS]" -print > $LNX_PATH/cscope.files
 echo cscope.files generated !
 
