@@ -56,3 +56,19 @@ proxy
 curl https://google.com.hk
 ```
 
+## bind a task with a CPU
+bind task to target cpu
+```
+taskset -p -c <cpus> <pid>
+taskset -pc 0,4-6,7 414
+```
+check which cpus are prefered by task
+```
+taskset -pc <pid>
+taskset -pc 414
+```
+more infomations see taskset --help
+
+## Syntax for a single-line while loop in Bash
+while true; do; echo "dude"; sleep 2; done &
+
