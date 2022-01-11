@@ -72,3 +72,5 @@ more infomations see taskset --help
 ## Syntax for a single-line while loop in Bash
 while true; do; echo "dude"; sleep 2; done &
 
+## vim configuration for linux kernel development
+[a nasty config](https://stackoverflow.com/questions/33676829/vim-configuration-for-linux-kernel-development)
