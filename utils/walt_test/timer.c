@@ -84,7 +84,7 @@ int main()
 
 	while(1) {
 		dude_loop(run_time);
-		pause();
+		// pause();
 	}
 
 	return 0;

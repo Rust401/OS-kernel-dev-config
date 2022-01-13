@@ -14,6 +14,10 @@ LNX_PATH="/home/ruty/ext/linux-kernel/linux"
 VALID="true"
 fi
 
+if [ $TARGET = "rk3568" ]; then
+LNX_PATH="/home/ruty/3568/kernel/linux/linux-5.10"
+VALID="true"
+fi
 
 if [ $VALID = "true" ]; then
 

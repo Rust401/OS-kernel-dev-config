@@ -9,17 +9,23 @@ echo "waiting ..."
 sleep 2
 
 echo "start running task!!"
-/data/local/tmp/test &
+# /data/local/tmp/test &
+# ps_result=$(ps -A | grep test)
+# cur_pid=${ps_result:1:5}
+# echo "running task is ${cur_pid}"
+# taskset -p 8 ${cur_pid}
+# echo "${cur_pid} bind to cpu 3"
+
+taskset 8 /data/local/tmp/test &
 ps_result=$(ps -A | grep test)
 cur_pid=${ps_result:1:5}
 echo "running task is ${cur_pid}"
-taskset -p 8 ${cur_pid}
 echo "${cur_pid} bind to cpu 3"
 
 echo "trace start!!!!"
-echo "wait 8 seconds ..."
+echo "wait 4 seconds ..."
 
-for i in `seq 8`
+for i in `seq 4`
 do
 	echo "${i}"
 	sleep 1
