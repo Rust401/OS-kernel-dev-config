@@ -67,8 +67,36 @@ check which cpus are prefered by task
 taskset -pc <pid>
 taskset -pc 414
 ```
-more infomations see taskset --help
+More infomations see `taskset --help`, actually see the manual page directly is more fancy.
+Check the `utils/walt_test/timer.c` for usage in the actual scene.
 
+```
+# SYNOPSIS
+taskset [options] mask command [command's args]
+taskset [options] -p [mask] pid
+
+# the mask if important
+
+0x00000001
+	is processor #0,
+
+0x00000003
+	is processors #0 and #1,
+
+0xFFFFFFFF
+	is processors #0 through #31,
+
+32
+	is processors #1, #4, and #5,
+
+--cpu-list 0-2,6
+	is processors #0, #1, #2, and #6.
+
+--cpu-list 0-10:2
+	is processors #0, #2, #4, #6, #8 and #10. The suffix ":N"
+	specifies stride in the range, for example 0-10:3 is
+	interpreted as 0,3,6,9 list.
+```
 ## Syntax for a single-line while loop in Bash
 while true; do; echo "dude"; sleep 2; done &
 
