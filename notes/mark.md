@@ -98,7 +98,27 @@ taskset [options] -p [mask] pid
 	interpreted as 0,3,6,9 list.
 ```
 ## Syntax for a single-line while loop in Bash
+```
 while true; do; echo "dude"; sleep 2; done &
+```
+
+## Syntax for multi-threads fucking the system
+```
+for num in {1..200}
+do
+while true;do ((cnt++)); sleep 0.1;done &
+done
+```
+
+## Don't reboot kernel when panic occurs
+```
+echo 0 > /proc/sys/kernel/panic
+```
+
+## Trigger a kernel panic on purpose
+```
+echo 'c' > /proc/sysrq-trigger
+```
 
 ## vim configuration for linux kernel development
 [a nasty config](https://stackoverflow.com/questions/33676829/vim-configuration-for-linux-kernel-development)
