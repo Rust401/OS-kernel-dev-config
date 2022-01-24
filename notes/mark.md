@@ -97,6 +97,20 @@ taskset [options] -p [mask] pid
 	specifies stride in the range, for example 0-10:3 is
 	interpreted as 0,3,6,9 list.
 ```
+
+## Syntax for a loop start n cfs tasks
+```sh
+for i in ${seq 1 400}
+do
+while true; do ((cnt++)); sleep 0.1; done &
+cur_pid=$!
+if [ ${i} -lt 4];then
+chrt -f -p 1 ${cur_pid}
+echo ${cur_pid}" change to rt"
+fi
+done
+```
+
 ## Syntax for a single-line while loop in Bash
 ```
 while true; do; echo "dude"; sleep 2; done &
@@ -115,6 +129,10 @@ done
 echo 0 > /proc/sys/kernel/panic
 ```
 
+## Dump frace when kenrel pancic occurs
+```
+echo 1 > /proc/sys/kernel/frace_dump_on_oops
+```
 ## Trigger a kernel panic on purpose
 ```
 echo 'c' > /proc/sysrq-trigger
