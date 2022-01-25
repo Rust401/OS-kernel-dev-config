@@ -100,7 +100,7 @@ taskset [options] -p [mask] pid
 
 ## Syntax for a loop start n cfs tasks
 ```sh
-for i in ${seq 1 400}
+for i in $(seq 1 400)
 do
 while true; do ((cnt++)); sleep 0.1; done &
 cur_pid=$!
