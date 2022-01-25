@@ -131,7 +131,7 @@ echo 0 > /proc/sys/kernel/panic
 
 ## Dump frace when kenrel pancic occurs
 ```
-echo 1 > /proc/sys/kernel/frace_dump_on_oops
+echo 1 > /proc/sys/kernel/ftrace_dump_on_oops
 ```
 ## Trigger a kernel panic on purpose
 ```
