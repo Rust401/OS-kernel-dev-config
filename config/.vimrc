@@ -1,9 +1,15 @@
 set number
 set hlsearch
 set tags=/home/ruty/ext/linux-kernel/linux/tags
+set statusline+=%f
 set laststatus=2
 set paste
 
+set listchars=tab:>-,trail:-,extends:#,nbsp:-
+set list
+
+set noexpandtab
+set tabstop=8
 "-------------------setting for pathogen------------------
 execute pathogen#infect()
 syntax on
