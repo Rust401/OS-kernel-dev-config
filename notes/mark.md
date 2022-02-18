@@ -140,3 +140,17 @@ echo 'c' > /proc/sysrq-trigger
 
 ## vim configuration for linux kernel development
 [a nasty config](https://stackoverflow.com/questions/33676829/vim-configuration-for-linux-kernel-development)
+
+## compile a arm64 linux kernel
+pick a suitable config
+```
+cp path/to/config path/to/kernel/root/dir/.config
+```
+make menuconfig
+```
+make ARCH=arm64 CROSS_COMPILE=aarch64-linux-gnu- menuconfig
+```
+make
+```
+make -j8 ARCH=arm64 CROSS_COMPILE=aarch64-linux-gnu-
+```
