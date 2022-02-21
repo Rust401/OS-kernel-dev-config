@@ -104,7 +104,7 @@ for i in $(seq 1 400)
 do
 while true; do ((cnt++)); sleep 0.1; done &
 cur_pid=$!
-if [ ${i} -lt 4];then
+if [ ${i} -lt 4 ];then
 chrt -f -p 1 ${cur_pid}
 echo ${cur_pid}" change to rt"
 fi
