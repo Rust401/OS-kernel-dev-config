@@ -105,7 +105,7 @@ do
 while true; do ((cnt++)); sleep 0.1; done &
 cur_pid=$!
 if [ ${i} -lt 4 ];then
-chrt -f -p 1 ${cur_pid}
+chrt -f -p ${cur_pid} 1
 echo ${cur_pid}" change to rt"
 fi
 done
