@@ -18,4 +18,5 @@ for install in specific path
 use ```make DESTDIR=/path/for/bin install``` instead, and do not forget to add the path to `$PATH`
 ## reference
 [cmake in github](https://github.com/Kitware/CMake)
+
 [wiki](https://en.wikipedia.org/wiki/CMake)
