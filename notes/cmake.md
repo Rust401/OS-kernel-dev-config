@@ -6,6 +6,7 @@ download
 ```sh
 wget https://github.com/Kitware/CMake/releases/download/v3.23.1/cmake-3.23.1.tar.gz
 tar -xvf cmake-3.23.1.tar.gz
+cd cmake-3.23.1
 ```
 config && install
 ```
