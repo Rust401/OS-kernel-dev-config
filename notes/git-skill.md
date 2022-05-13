@@ -13,4 +13,8 @@ Pull upstream changes to local repo
 git pull upstream [branch]
 ```
 User `tab` to choose available branch
+## check diff of files have been added
+```
+git diff --cached
+```
 
