@@ -44,7 +44,7 @@ python3 install.py --clangd-completer
 ```
 没配代理或者代理速度比较慢的，执行这部大概率报错，原因是clangd太大了，用python的download功能容易中途中断
 ```
-vim ./third_party/ycmd/build.py
+vim ~/.vim/bundle/YouCompleteMe/third_party/ycmd/build.py
 ```
 进到这里面，找到`DownloadClangd`这个函数
 ```python
