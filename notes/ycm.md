@@ -71,9 +71,9 @@ vim ./third_party/ycmd/build.py
 1120     os.remove( file_name )
 1121
 1122   if p.exists( file_name ):
-1123     printer( f'[dude-debug] { file_name }' )
-1124     printer( f'Using cached Clangd: { file_name }' )
-1125   else:
+1123     printer( f'Using cached Clangd: { file_name }' )
+1124   else:
+1125     printer( f'[dude-debug] { file_name }' )
 1126     printer( f"Downloading Clangd from { download_url }..." )
 1127     DownloadFileTo( download_url, file_name )
 1128     if not CheckFileIntegrity( file_name, check_sum ):
@@ -86,11 +86,11 @@ vim ./third_party/ycmd/build.py
 1135
 1136   printer( "Done installing Clangd" )
 ```
-可以在1123行加个打印，再执行
+可以在1125行加个打印，再执行
 ```sh
 /usr/bin/python3 ~/.vim/bundle/YouCompleteMe/third_party/ycmd/build.py --clangd-completer --verbose
 ```
-看下`clangd-14.0.0-x86_64-unknown-linux-gnu.tar.bz2`这玩意临时存放的位置，大概在
+根据`dude-debug`关键词，看下`clangd-14.0.0-x86_64-unknown-linux-gnu.tar.bz2`这玩意临时存放的位置，大概在
 ```
 ~/.vim/bundle/YouCompleteMe/third_party/ycmd/third_party/clangd/cache/
 ```
@@ -101,5 +101,21 @@ vim ./third_party/ycmd/build.py
 ```
 /usr/bin/python3 ~/.vim/bundle/YouCompleteMe/third_party/ycmd/build.py --clangd-completer --verbose
 ```
+如果看到`Done installing Clangd`，说明装好了
+
+## 使用
+进到vim，命令模式输入
+```
+:YcmDebugInfo
+```
+如果命令能正确被解析，说明安装成功，如果解析不了，可能是.vimrc的配置有冲突
+
+清空下vimrc里面不必要的命令，再试下
+
+我这边是和`NERDTree`的配置冲突了
+```
+" autocmd VimEnter * if argc() == 0 && !exists('s:std_in') | NERDTree | endif
+```
+注释掉这行即可
 
 
