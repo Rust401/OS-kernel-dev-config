@@ -1,6 +1,5 @@
 set number
 set hlsearch
-set tags=/home/ruty/ext/linux-kernel/linux/tags
 set statusline+=%f
 set laststatus=2
 set paste
@@ -45,6 +44,3 @@ set cursorline
 
 highlight CursorLine   cterm=NONE ctermbg=black ctermfg=NONE guibg=NONE guifg=NONE
 highlight CursorColumn cterm=NONE ctermbg=black ctermfg=NONE guibg=NONE guifg=NONE
-
-"------------------setting for clang-complete-------------------
-let g:clang_library_path='/usr/lib/llvm-10/lib'
