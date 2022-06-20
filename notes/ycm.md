@@ -118,4 +118,65 @@ vim ~/.vim/bundle/YouCompleteMe/third_party/ycmd/build.py
 ```
 注释掉这行即可
 
+### 用来看内核代码
+这玩意不配置的话，写个普通的helloWorld倒是没问题，但是看内核就各种不行了，得搞定compile flags才行
 
+好在内核的`./scripts/clang-tools/gen_compile_commands.py`可以用来生成`compile_commands.json`，这玩意记录了每个文件的编译选项
+
+ycm可以通过`compile_commands.json`里的内容，找到对应文件`xxx.c`的编译选项并载入，这样就可以实现精确跳转+语法检查
+
+`compile_commands.json`需要编译过一次之后才能生成，所以我们得先把内核目录编译一遍，需要先装下clang-12（老版本的clang不支持编译linux内核）
+
+```sh
+sudo apt-get install clang-12 --install-suggests
+```
+
+然后用clang-12编译内核，我这边用的arm64版本的，交叉编译工具过程中有缺失的就自己装
+```
+cd /path/to/kernel/dir
+
+make CC=clang-12 ARCH=arm64 CROSS_COMPILE=aarch64-linux-gnu- menuconfig
+
+make -j8 CC=clang-12 ARCH=arm64 CROSS_COMPILE=aarch64-linux-gnu-
+```
+
+生成`compile_commands.json`
+```
+cd /path/to/kernel/dir
+
+./scripts/clang-tools/gen_compile_commands.py
+```
+执行完后，我们会发现
+`compile_commands.json`在内核源代码的根目录生成，这个文件不用配置，ycm在初始化时会自动检测
+
+```py
+211   # Return a compilation database object for the supplied path or None if no
+212   # compilation database is found.
+213   def LoadCompilationDatabase( self, file_dir ):
+214     # We search up the directory hierarchy, to first see if we have a
+215     # compilation database already for that path, or if a compile_commands.json
+216     # file exists in that directory.
+217     for folder in PathsToAllParentFolders( file_dir ):
+218       # Try/catch to synchronise access to cache
+219       try:
+220         return self.compilation_database_dir_map[ folder ]
+221       except KeyError:
+222         pass
+223
+224       compile_commands = os.path.join( folder, 'compile_commands.json' )
+225       if os.path.exists( compile_commands ):
+226         database = ycm_core.CompilationDatabase( folder )
+227
+228         if database.DatabaseSuccessfullyLoaded():
+229           self.compilation_database_dir_map[ folder ] = database
+230           return database
+231
+232     # Nothing was found. No compilation flags are available.
+233     # Note: we cache the fact that none was found for this folder to speed up
+234     # subsequent searches.
+235     self.compilation_database_dir_map[ file_dir ] = None
+236     return None
+```
+YCM插件中的`third_party/ycmd/ycmd/completers/cpp/flags.py`定义了这个函数，用来寻找compile_commands.json，感兴趣可以自己看下调用点
+
+自此，随便开个kernel的.c文件，就会发现语法检查，自动补全，自动跳转功能都好用了。
