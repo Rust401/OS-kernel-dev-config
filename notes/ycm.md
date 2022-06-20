@@ -132,7 +132,7 @@ sudo apt-get install clang-12 --install-suggests
 ```
 
 然后用clang-12编译内核，我这边用的arm64版本的，交叉编译工具过程中有缺失的就自己装
-```
+```sh
 cd /path/to/kernel/dir
 
 make CC=clang-12 ARCH=arm64 CROSS_COMPILE=aarch64-linux-gnu- menuconfig
@@ -141,11 +141,13 @@ make -j8 CC=clang-12 ARCH=arm64 CROSS_COMPILE=aarch64-linux-gnu-
 ```
 
 生成`compile_commands.json`
-```
+
+```sh
 cd /path/to/kernel/dir
 
 ./scripts/clang-tools/gen_compile_commands.py
 ```
+
 执行完后，我们会发现
 `compile_commands.json`在内核源代码的根目录生成，这个文件不用配置，ycm在初始化时会自动检测
 
