@@ -181,8 +181,6 @@ cd /path/to/kernel/dir
 ```
 YCM插件中的`third_party/ycmd/ycmd/completers/cpp/flags.py`定义了这个函数，用来寻找compile_commands.json，感兴趣可以自己看下调用点
 
-自此，随便开个kernel的.c文件，就会发现语法检查，自动补全，自动跳转功能都好用了。
-
 里面的语法检查是贼好用的，写内核代码速度可以快很多，而且边写就把编译问题fix了
 
 如果一个1w行的文件有3行有语法错误的，想要快速找，肯定不能傻傻pageup和pagedown
@@ -192,3 +190,7 @@ YCM插件中的`third_party/ycmd/ycmd/completers/cpp/flags.py`定义了这个函
 这样每检查一个错误，ycm就会把这个错误的行数填到vim的location_list中
 
 我们可以用`lnext`和`lprevious`在每个错误间跳转
+
+讲道理，直接看[YCM官方文档](https://github.com/ycm-core/YouCompleteMe#quick-feature-summary)，各种option以及怎么用就一目了然了，有追求还是得仔细学一下
+
+自此，随便开个kernel的.c文件，就会发现语法检查，自动补全，自动跳转功能都好用了。
