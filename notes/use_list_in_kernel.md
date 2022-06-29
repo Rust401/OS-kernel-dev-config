@@ -68,6 +68,8 @@ void init_clusters(void)
 
 要删哥们儿，就`list_del(dude_to_delete)`很神奇，都不用找到链的`list_head`，无脑的O1删除
 
+一般用list_del_init更多，把`dude_to_delete`摘下来后，再init一把，免得出现新的麻烦
+
 要遍历这个list，关注下iter和tmp就行
 ```c
 static void
@@ -83,6 +85,35 @@ insert_cluster(struct sched_cluster *cluster, struct list_head *head)
 	}
 
 	list_add(&cluster->list, iter);
+}
+```
+但这个遍历是没法一边遍历一边删的，但我们可以用`list_for_each_entry_safe`
+
+例子见
+
+```c
+int authority_remove_handler(int id, void *p, void *para)
+{
+	struct rtg_authority *auth = (struct rtg_authority *)p;
+	struct task_struct *tmp;
+	struct task_struct *next;
+	int i;
+
+	raw_spin_lock(&auth->auth_lock);
+	auth->status = AUTH_STATUS_DEAD;
+
+	/* delete all p in auth->tasks[NR_QOS] */
+	for (i = 0; i < NR_QOS; ++i) {
+		list_for_each_entry_safe(tmp, next, &auth->tasks[i], qos_list) {
+			tmp->in_qos = 0;
+			list_del_init(&tmp->qos_list);
+		}
+	}
+	raw_spin_unlock(&auth->auth_lock);
+
+	kfree(auth);
+
+	return 0;
 }
 ```
 内核中很多例子，可以随时参考，基本知道这些就能用了
