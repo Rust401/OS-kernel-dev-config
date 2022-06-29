@@ -187,7 +187,7 @@ YCM插件中的`third_party/ycmd/ycmd/completers/cpp/flags.py`定义了这个函
 
 如果一个1w行的文件有3行有语法错误的，想要快速找，肯定不能傻傻pageup和pagedown
 
-.vimrc里面加入`let g:ycm_always_populate_location_list = 1
+.vimrc里面加入`let g:ycm_always_populate_location_list = 1`
 
 这样每检查一个错误，ycm就会把这个错误的行数填到vim的location_list中
 
