@@ -38,3 +38,13 @@ autocmd BufWinLeave * call clearmatches()
 set colorcolumn=101
 "execute "set colorcolumn=" . join(range(81,335), ',')
 highlight ColorColumn ctermbg=Black ctermfg=DarkRed
+
+"-------------------setting for YouCompleteMe-------------
+let g:ycm_autoclose_preview_window_after_completion=1
+let g:ycm_autoclose_preview_window_after_insertion=1
+
+nnoremap <leader>jd :YcmCompleter GoToDefinitionElseDeclaration<CR>
+nnoremap <leader>jdc :YcmCompleter GoToDeclaration<CR>
+
+nmap <leader>yfw <Plug>(YCMFindSymbolInWorkspace)
+let g:ycm_auto_hover=''
