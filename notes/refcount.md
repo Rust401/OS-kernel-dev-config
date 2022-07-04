@@ -130,3 +130,5 @@ task:
 1. task_struct
 2. driver/block/loop.c
 3. driver/cpufreq/cpufreq.c
+4. [kref.txt](https://www.kernel.org/doc/Documentation/kref.txt)
+5. [csdn analysis](https://blog.csdn.net/qb_2008/article/details/6840387)
