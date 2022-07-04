@@ -125,3 +125,8 @@ task:
 但注意下几个要点
 1. refcount需要在大锁内加
 2. put的动作是原子的，可以放锁外
+
+## Reference
+1. task_struct
+2. driver/block/loop.c
+3. driver/cpufreq/cpufreq.c
