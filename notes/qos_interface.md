@@ -192,3 +192,27 @@ int qos_leave();
 * task运行时
 ### 限制
 * 可由任意task调用
+# qos_xxx使用举例
+```
+void task_want_to_get_more_cpu_supply()
+{
+    ...
+    ret = qos_apply(5);          //add self to RTG group
+    if (ret)
+        pr_err("oops!\n"); 
+    ...
+    ret = qos_apply(4);          //leave the RTG group and give self a latency nice
+    if (ret)
+        pr_err("oops!\n"); 
+    ...
+}
+
+void task_dont_need_advanced_cpu_apply_anymore()
+{
+    ...
+    ret = qos_leave();          //give self a latency nice
+    if (ret)
+        pr_err("oops!\n");
+    ...
+}
+```
