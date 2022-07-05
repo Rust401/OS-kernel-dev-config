@@ -1,7 +1,6 @@
+[toc]
 # QOS
 qos模块主要分两部分，[RTG权限管控](#RTG权限管控)和[QOS下发模块](#QOS下发模块)
-# 目录
-[toc]
 # RTG权限管控
 由SYSTEM下发，用来管控各app对RTG的ioctl接口的访问权限，约束不同app在不同状态下的行为。
 
