@@ -5,6 +5,8 @@ qos模块主要分两部分，[RTG权限管控](#RTG权限管控)和[QOS下发�
 
 主要由4个接口组成[auth_enable](#auth_enable)、[auth_delete](#auth_delete)、[auth_pause](#auth_pause)、[auth_get](#auth_get)。
 
+可以直接看[使用举例](#auth_xxx使用举例)
+
 # auth_enable
 ### 函数声明
 ```c
