@@ -75,6 +75,33 @@ int auth_get(unsigned int uid, unsigned int *ua_flag, unsigned int *status);
 * 任意时刻
 ### 限制
 * 只能由SYSTEM调用
+# auth_xxx使用举例
+```c
+/*
+ * task can access all ioctl cmd of rtg
+ * except the auth_manipulate
+ */
+#define AF_RTG_ALL                0x7fff
+
+enum rtg_auth_status {
+    AUTH_STATUS_CACHED = 0,
+    AUTH_STATUS_ENABLE,
+};
+
+void start_app()
+{
+    unsigned int uid = 10086;
+    unsigned int ua_flag = AF_RTG_ALL;
+    unsigned int status = AUTH_STATUS_ENABLE;
+    ...
+    /* start rtg authroity control for app whose uid is 10086 */
+    ret = auth_enable(uid, ua_flag, status);
+    if (ret)
+        pr_err("oops!")
+    ...
+}
+
+```
 
 # QOS下发模块
 由每个task自己下发，申请qos服务来保证cpu的供给。
