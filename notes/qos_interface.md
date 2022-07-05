@@ -1,5 +1,4 @@
 # QOS
-- [QOS](#qos)
 - [RTG权限管控](#rtg权限管控)
     - [auth_enable](#auth_enable)
     - [auth_delete](#auth_delete)
