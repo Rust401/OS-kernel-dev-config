@@ -2,7 +2,7 @@
 # RTG权限管控
 由SYSTEM下发，用来管控各app对RTG的ioctl接口的访问权限，约束不同app在不同状态下的行为。
 
-主要由4个接口组成`auth_enable`、`auth_pause`、`auth_delete`、`auth_get`。
+主要由4个接口组成[auth_enable](#auth_enable)、`auth_pause`、`auth_delete`、`auth_get`。
 
 # auth_enable
 ### 函数声明
