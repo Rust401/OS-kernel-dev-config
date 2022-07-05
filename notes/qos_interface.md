@@ -4,7 +4,7 @@
 
 主要由4个接口组成`auth_enable`、`auth_pause`、`auth_delete`、`auth_get`。
 
-## auth_enable
+# auth_enable
 ### 函数声明
 ```c
 int auth_enable(unsigned int uid, unsigned int ua_flag, unsigned int status);
@@ -25,7 +25,7 @@ int auth_enable(unsigned int uid, unsigned int ua_flag, unsigned int status);
 ### 限制
 * 只能由SYSTEM调用
 
-## auth_delete
+# auth_delete
 ### 函数声明
 ```c
 int auth_delete(unsigned int uid);
@@ -41,7 +41,7 @@ int auth_delete(unsigned int uid);
 ### 限制
 * 只能由SYSTEM调用
 
-## auth_pause
+# auth_pause
 ### 函数声明
 ```c
 int auth_pause(unsigned int uid);
@@ -57,7 +57,7 @@ int auth_pause(unsigned int uid);
 ### 限制
 * 只能由SYSTEM调用
 
-## auth_get
+# auth_get
 ### 函数声明
 ```c
 int auth_get(unsigned int uid, unsigned int *ua_flag, unsigned int *status);
