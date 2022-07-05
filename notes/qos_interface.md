@@ -97,7 +97,7 @@ int qos_apply(unsigned int level);
 * task运行时
 ### 限制
 * 可由任意task调用
-* # qos_apply
+* # qos_leave
 ### 函数声明
 ```c
 int qos_leave();
