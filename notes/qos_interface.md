@@ -161,6 +161,8 @@ void some_routine_want_know_app_status()
 task在前台时，qos请求能立马生效，task在后台时，qos请求仅会被缓存，待切回前台时再统一生效。
 
 主要由2个接口组成[qos_apply](#qos_apply)、[qos_leave](#qos_leave)。
+
+可以直接看[使用举例](#qos_xxx使用举例)
 # qos_apply
 ### 函数声明
 ```c
@@ -193,7 +195,7 @@ int qos_leave();
 ### 限制
 * 可由任意task调用
 # qos_xxx使用举例
-```
+```c
 void task_want_to_get_more_cpu_supply()
 {
     ...
