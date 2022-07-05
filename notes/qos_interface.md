@@ -101,6 +101,56 @@ void start_app()
     ...
 }
 
+void app_swap_to_front()
+{
+    unsigned int uid = 10086;
+    unsigned int ua_flag = 0x7ff0;             //rtg cmd 1-4 are disabled
+    unsigned int status = AUTH_STATUS_ENABLE;
+    ...
+    /* resume tasks' qos request and disable the rtg cmd 1-4 for this uid */
+    ret = auth_enable(uid, ua_flag, status);
+    if (ret)
+        pr_err("oops!")
+    ... 
+}
+
+void app_swap_to_background()
+{
+    unsigned int uid = 10086;
+    ...
+    /* temporary tasks' qos request */
+    ret = auth_pause(uid);
+    if (ret)
+        pr_err("oops!")
+    ... 
+}
+
+void app_quit()
+{
+    unsigned int uid = 10086;
+    ...
+    /* disable the app's authority control for RTG */
+    ret = auth_delete(uid);
+    if (ret)
+        pr_err("oops!")
+    ... 
+}
+
+void some_routine_want_know_app_status()
+{
+    unsigned int uid = 10086;
+    unsigned int ua_flag;
+    unsigned int status;
+    ...
+    /* disable the app's authority control for RTG */
+    ret = auth_get(uid, &ua_flag, &status);
+    if (ret)
+        pr_err("oops!")
+        
+    printf("ua_flag=%x, status=%d\n", ua_flag, status);
+    ... 
+}
+
 ```
 
 # QOS下发模块
