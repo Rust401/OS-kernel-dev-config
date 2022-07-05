@@ -1,5 +1,16 @@
-[toc]
 # QOS
+- [QOS](#qos)
+- [RTG权限管控](#rtg权限管控)
+    - [auth_enable](#auth_enable)
+    - [auth_delete](#auth_delete)
+    - [auth_pause](#auth_pause)
+    - [auth_get](#auth_get)
+    - [auth_xxx使用举例](#auth_xxx使用举例)
+- [QOS下发模块](#qos下发模块)
+    - [qos_apply](#qos_apply)
+    - [qos_leave](#qos_leave)
+    - [qos_xxx使用举例](#qos_xxx使用举例)
+
 qos模块主要分两部分，[RTG权限管控](#RTG权限管控)和[QOS下发模块](#QOS下发模块)
 # RTG权限管控
 由SYSTEM下发，用来管控各app对RTG的ioctl接口的访问权限，约束不同app在不同状态下的行为。
@@ -180,7 +191,7 @@ int qos_apply(unsigned int level);
 * task运行时
 ### 限制
 * 可由任意task调用
-* # qos_leave
+# qos_leave
 ### 函数声明
 ```c
 int qos_leave();
