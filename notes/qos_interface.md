@@ -74,3 +74,41 @@ int auth_get(unsigned int uid, unsigned int *ua_flag, unsigned int *status);
 * 任意时刻
 ### 限制
 * 只能由SYSTEM调用
+
+# QOS下发模块
+由每个task自己下发，申请qos服务来保证cpu的供给。
+
+task在前台时，qos请求能立马生效，task在后台时，qos请求仅会被缓存，待切回前台时再统一生效。
+
+主要由2个接口组成[qos_apply](#qos_apply)、[qos_leave](#qos_leave)。
+# qos_apply
+### 函数声明
+```c
+int qos_apply(unsigned int level);
+```
+### 描述
+* 为当前task申请qos服务。
+* 如果task当前在前台，该qos请求立马生效，如果task在后台，qos请求仅被缓存，在下回切前台时再生效。
+### 参数
+* `level`: qos等级，1-5有效，数值越大，cpu供给程度越高
+### 返回值
+* 0表示返回成功，负值表示error
+### 调用时机
+* task运行时
+### 限制
+* 可由任意task调用
+* # qos_apply
+### 函数声明
+```c
+int qos_leave();
+```
+### 描述
+* 停止当前task的qos服务，并把task移出qos链表
+### 参数
+* 无
+### 返回值
+* 0表示返回成功，负值表示error
+### 调用时机
+* task运行时
+### 限制
+* 可由任意task调用
