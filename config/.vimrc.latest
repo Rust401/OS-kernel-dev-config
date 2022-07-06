@@ -1,28 +1,55 @@
-execute pathogen#infect()
-syntax on
-filetype plugin indent on
+set nocompatible              " be iMproved, required
+filetype off                  " required
 
-set paste
+" set the runtime path to include Vundle and initialize
+set rtp+=~/.vim/bundle/Vundle.vim
+call vundle#begin()
+" alternatively, pass a path where Vundle should install plugins
+"call vundle#begin('~/some/path/here')
 
-set hlsearch
+" let Vundle manage Vundle, required
+Plugin 'VundleVim/Vundle.vim'
+Plugin 'Valloric/YouCompleteMe'
+
+" All of your Plugins must be added before the following line
+call vundle#end()            " required
+filetype plugin indent on    " required
+" To ignore plugin indent changes, instead use:
+"filetype plugin on
+"
+" Brief help
+" :PluginList       - lists configured plugins
+" :PluginInstall    - installs plugins; append `!` to update or just :PluginUpdate
+" :PluginSearch foo - searches for foo; append `!` to refresh local cache
+" :PluginClean      - confirms removal of unused plugins; append `!` to auto-approve removal
+"
+" see :h vundle for more details or wiki for FAQ
+" Put your non-Plugin stuff after this line
+
 set number
-
+set hlsearch
 set statusline+=%f
 set laststatus=2
+set paste
 
 set listchars=tab:>-,trail:-,extends:#,nbsp:-
 set list
 
+set nocompatible
+set backspace=indent,eol,start
+
 set noexpandtab
 set tabstop=8
+"-------------------setting for pathogen------------------
+execute pathogen#infect()
+syntax on
+filetype plugin indent on
 
-set cursorline
-set cursorcolumn
-highlight CursorLine     cterm=NONE ctermbg=black ctermfg=NONE guibg=NONE guifg=NONE
-highlight CursorColumn   cterm=NONE ctermbg=black ctermfg=NONE guibg=NONE guifg=NONE
-highlight LineNr ctermfg=white
-
-set ff=unix
+"-------------------setting for kernel format-------------
+" 80 characters line
+set colorcolumn=101
+"execute "set colorcolumn=" . join(range(81,335), ',')
+highlight ColorColumn ctermbg=Black ctermfg=DarkRed
 
 " Highlight trailing spaces
 " http://vim.wikia.com/wiki/Highlight_unwanted_spaces
@@ -32,12 +59,6 @@ autocmd BufWinEnter * match ExtraWhitespace /\s\+$/
 autocmd InsertEnter * match ExtraWhitespace /\s\+\%#\@<!$/
 autocmd InsertLeave * match ExtraWhitespace /\s\+$/
 autocmd BufWinLeave * call clearmatches()
-
-"-------------------setting for kernel format-------------
-" 80 characters line
-set colorcolumn=101
-"execute "set colorcolumn=" . join(range(81,335), ',')
-highlight ColorColumn ctermbg=Black ctermfg=DarkRed
 
 "-------------------setting for NERDTREE-------------
 nnoremap <F2> :NERDTreeToggle<CR>
@@ -100,10 +121,29 @@ nmap <leader>yfw <Plug>(YCMFindSymbolInWorkspace)
 let g:ycm_auto_hover=''
 let g:ycm_always_populate_location_list = 1
 
-"-------------------setting for vim-airline-------------
-let g:airline#extensions#tabline#enabled = 1
-let g:airline#extensions#tabline#left_sep = ' '
-let g:airline#extensions#tabline#left_alt_sep = '|'
 
-" append export TERM=screen-256color in .zshrc if use tmux
-let g:airline_theme='solarized'
+"-------------------setting for vim-airline-------------
+"let g:airline#extensions#tabline#enabled = 1
+"let g:airline#extensions#tabline#left_sep = ' '
+"let g:airline#extensions#tabline#left_alt_sep = '|'
+
+"let g:airline_theme='solarized'
+
+"-------------------setting for lightline-------------
+"add this line to .zshrc
+"export TERM=xterm-256color
+if !has('gui_running')
+  set t_Co=256
+endif
+
+let g:lightline = {
+      \ 'colorscheme': 'one',
+      \ 'active': {
+      \   'left': [ [ 'mode', 'paste' ],
+      \             [ 'readonly', 'filename', 'modified', 'helloworld' ] ]
+      \ },
+      \ 'component': {
+      \   'helloworld': 'live fast deprave young.'
+      \ },
+      \ }
+
