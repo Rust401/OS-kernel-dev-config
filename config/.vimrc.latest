@@ -32,6 +32,9 @@ set statusline+=%f
 set laststatus=2
 set paste
 
+hi Search term=reverse ctermfg=0 ctermbg=220 guibg=Yellow
+hi Lf_hl_cursorline ctermfg=220
+
 set listchars=tab:>-,trail:-,extends:#,nbsp:-
 set list
 
