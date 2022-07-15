@@ -11,7 +11,7 @@ WALT：Windows-Assist Load Tracing的缩写，一种负载追踪机制，用窗�
 ### 使能WALT
 打开相关配置项及依赖
 
-启用CPU轻量级隔离，需要通过编译内核时打开相应的配置项及依赖，相关CONFIG如下：
+启动WALT，需要通过编译内核时打开相应的配置项及依赖，相关CONFIG如下：
 
 ```
 CONFIG_SCHED_WALT
