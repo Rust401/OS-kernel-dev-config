@@ -1,5 +1,9 @@
 # 配置YouCompleteMe
-## 如果互联网访问是通畅的，走这个简明流程
+- [如果互联网访问是通畅的，走这个简明流程](#简明流程)
+- [如果互联网访问不那么通常，比如在国内的云服务器上，或者自己的wsl上，走下面那个踩坑流程](#踩坑流程)
+- [装好了看怎么用](#使用)
+
+## 简明流程
 ### 安装依赖
 ```
 apt install build-essential cmake vim-nox python3-dev
@@ -24,7 +28,7 @@ apt install mono-complete golang nodejs default-jdk npm
 cd ~/.vim/bundle/YouCompleteMe
 python3 install.py --all
 ```
-## 如果互联网访问不那么通常，比如在国内的云服务器上，或者自己的wsl上，走下面那个踩坑流程
+## 踩坑流程
 ### 安装依赖
 ```
 apt install build-essential cmake vim-nox python3-dev
