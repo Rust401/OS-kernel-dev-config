@@ -108,6 +108,7 @@ vim ~/.vim/bundle/YouCompleteMe/third_party/ycmd/build.py
 如果看到`Done installing Clangd`，说明装好了
 
 ## 使用
+### 检查是否成功安装
 进到vim，命令模式输入
 ```
 :YcmDebugInfo
@@ -201,6 +202,8 @@ YCM插件中的`third_party/ycmd/ycmd/completers/cpp/flags.py`定义了这个函
 
 里面的语法检查是贼好用的，写内核代码速度可以快很多，而且边写就把编译问题fix了
 
+### 额外配置
+
 如果一个1w行的文件有3行有语法错误的，想要快速找，肯定不能傻傻pageup和pagedown
 
 .vimrc里面加入`let g:ycm_always_populate_location_list = 1`
@@ -211,4 +214,4 @@ YCM插件中的`third_party/ycmd/ycmd/completers/cpp/flags.py`定义了这个函
 
 讲道理，直接看[YCM官方文档](https://github.com/ycm-core/YouCompleteMe#quick-feature-summary)，各种option以及怎么用就一目了然了，有追求还是得仔细学一下
 
-自此，随便开个kernel的.c文件，就会发现语法检查，自动补全，自动跳转功能都好用了。
+自此，随便开个项目里的.c文件（尤其是kernel里面的），就会发现语法检查，自动补全，自动跳转功能都好用了。
