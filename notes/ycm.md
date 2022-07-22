@@ -139,7 +139,7 @@ bear make CC=clang-12
 
 ycm可以通过`compile_commands.json`里的内容，找到对应文件`xxx.c`的编译选项并载入，这样就可以实现精确跳转+语法检查
 
-ycm不需要对`compile_commands.json`的路径额外配置，ycm在每次初始化时会自动检测
+此外，ycm不需要对`compile_commands.json`的路径额外配置，ycm在每次初始化时会自动检测
 
 ```py
 211   # Return a compilation database object for the supplied path or None if no
@@ -172,10 +172,7 @@ ycm不需要对`compile_commands.json`的路径额外配置，ycm在每次初始
 YCM插件中的`third_party/ycmd/ycmd/completers/cpp/flags.py`定义了这个函数，用来寻找compile_commands.json，感兴趣可以自己看下调用点
 
 ### 用来看内核代码
-这玩意不配置的话，写个普通的helloWorld倒是没问题，但是看内核就各种不行了，得搞定compile flags才行
-
 内核也需要`compile_commands.json`，内核有自己的生成脚本`./scripts/clang-tools/gen_compile_commands.py`
-
 
 同样的，`compile_commands.json`需要编译过一次之后才能生成，所以我们得先把内核目录编译一遍，需要先装下clang-12（老版本的clang不支持编译linux内核）
 
