@@ -121,13 +121,27 @@ vim ~/.vim/bundle/YouCompleteMe/third_party/ycmd/build.py
 " autocmd VimEnter * if argc() == 0 && !exists('s:std_in') | NERDTree | endif
 ```
 注释掉这行即可
+### 用来看普通项目代码
+先下载一个bear，用来根据makefile生成每个文件的编译选项的
+```sh
+sudo apt install bear
+```
+以bear命令为前缀编译项目（首先得有makefile）
+```sh
+bear make
+```
+最好指定一下编译器，`CC=clang-12`，至于为什么，可以看下[内核部分](#用来看内核代码)
+```sh
+bear make CC=clang-12
+```
+编译完后，会在项目目录下发现一个`compile_commands.json`，这玩意记录了每个文件的编译选项
+
+ycm可以通过`compile_commands.json`里的内容，找到对应文件`xxx.c`的编译选项并载入，这样就可以实现精确跳转+语法检查
 
 ### 用来看内核代码
 这玩意不配置的话，写个普通的helloWorld倒是没问题，但是看内核就各种不行了，得搞定compile flags才行
 
-好在内核的`./scripts/clang-tools/gen_compile_commands.py`可以用来生成`compile_commands.json`，这玩意记录了每个文件的编译选项
-
-ycm可以通过`compile_commands.json`里的内容，找到对应文件`xxx.c`的编译选项并载入，这样就可以实现精确跳转+语法检查
+好在内核的`./scripts/clang-tools/gen_compile_commands.py`可以用来生成`compile_commands.json`
 
 `compile_commands.json`需要编译过一次之后才能生成，所以我们得先把内核目录编译一遍，需要先装下clang-12（老版本的clang不支持编译linux内核）
 
