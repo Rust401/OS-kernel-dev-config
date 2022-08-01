@@ -54,7 +54,7 @@ PubkeyAuthentication yes
 ### 测试是否能连
 把公钥在跳板机和内网服务器上都配好
 
-执行一波
+执行一波（记得替换成有效内容）
 
 ```
 ssh USERNAME_TARGET@IP_TARGET -p PORT_TARGET -J USERNAME_JUMPER@IP_JUMPER:PORT_JUMPER
