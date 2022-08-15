@@ -19,7 +19,11 @@ git diff --cached
 ```
 
 ## fix slow response for large git repo when zsh enabled
-```
+```sh
 git config --global --add oh-my-zsh.hide-dirty 1
 git config --global --add oh-my-zsh.hide-status 1
+```
+global config is here
+```sh
+~/.gitconfig
 ```
