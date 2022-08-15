@@ -18,3 +18,8 @@ User `tab` to choose available branch
 git diff --cached
 ```
 
+## fix slow response for large git repo when zsh enabled
+```
+git config --global --add oh-my-zsh.hide-dirty 1
+git config --global --add oh-my-zsh.hide-status 1
+```
