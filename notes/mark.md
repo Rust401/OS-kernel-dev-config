@@ -129,6 +129,21 @@ done
 echo 0 > /proc/sys/kernel/panic
 ```
 
+## change the printk level
+```
+cat /proc/sys/kernel/printk
+```
+
+## kernel buffer(in memory)
+```
+cat /proc/kmsg
+```
+
+## thread capacity check
+```
+cat /proc/<pid>/stats | grep Cap
+```
+
 ## Dump frace when kenrel pancic occurs
 ```
 echo 1 > /proc/sys/kernel/ftrace_dump_on_oops
