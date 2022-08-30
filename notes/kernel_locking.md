@@ -7,5 +7,7 @@
 
 * Avoid holding spinlock for more than 5 lines of code and across any function call (except accessors like readb).
 
+**Remember the advice above: you can always use spin_lock_irqsave(), which is a superset of all other spinlock primitives.**
+
 ![8230d955e3c21ac0c2b28a7684da3c8](https://user-images.githubusercontent.com/31315527/187341775-7fda5e1f-a08c-457a-bf4a-a406c9781740.png)
 ![f34b14aac59bb6cd4e83cecc3d7ad95](https://user-images.githubusercontent.com/31315527/187341789-9f146b0c-26be-40e0-843b-33523bcd9d41.png)
