@@ -174,3 +174,8 @@ make -j8 ARCH=arm64 CROSS_COMPILE=aarch64-linux-gnu-
 ```
 aarch64-linux-gnu-objdump -D -l -g xxx.o > dude_test.txt
 ```
+
+## zsh
+```
+sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+```
