@@ -179,3 +179,6 @@ aarch64-linux-gnu-objdump -D -l -g xxx.o > dude_test.txt
 ```
 sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 ```
+
+## RCU
+[introduction to RCU](https://www.kernel.org/doc/Documentation/RCU/whatisRCU.txt)
