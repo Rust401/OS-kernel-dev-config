@@ -78,6 +78,15 @@ android_vendor_hook是AOSP的东西，我们索性先把[codeauora的msm-5.10](h
 流水账记到这里，总结下
 `DECLARE_RESTRICTED_HOOK`定义了tracepoint（含func）的**调用**和**注册**接口
 
+`DECLARE_HOOK`则走的是`DECLARE_TRACE`那条路径，大同小异，先不看了。
+
+### vendor_hooks.h
+这文件其实上面已经看过了，花式宏定义，整个vendor_hooks机制的核心
+
+
+### tracepoint.c
+这个是trace点内的func注册用的实际实现函数
+
 
 
 
