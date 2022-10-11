@@ -102,6 +102,25 @@ walt涉及到的trace点，要先include
 
 显然注册的时候，得把真正用于实现的东西塞进去
 
+归纳下：
+
+1. kernel本体通过`DECLARE_RESTRICTED_HOOK`在`include/trace/hooks/xxx.h`定义好各种hook点
+
+2. 在内核逻辑适当的地方插入调用点，就是那些`trace_##name`开头的
+
+3. module通过include条目1里面的那个头文件，就可以为该hook点注册真实的动作
+
+## 移植
+移植有两种方式，一种是回放patch，另一种是直接硬移
+
+回放patch的问题是很难把所有相关的commit都弄进去（当前只能通过git log --oneline <target_path>去寻找相关的commit）
+
+比如说，`CONFIG_ANDROID_STRUCT_PADDING`也是个和vendor_hook相关的宏，但是被我忘记了，与之相关的还有`include/linux/android_vendor.h`这种文件
+
+内心还是想回放patch的，硬移就需要各种复制，但鬼知道回放patch会不会给自己留暗坑
+
+
+
 
 
 
