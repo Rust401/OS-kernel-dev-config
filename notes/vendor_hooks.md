@@ -23,30 +23,60 @@ android_vendor_hook是AOSP的东西，我们索性先把[codeauora的msm-5.10](h
 
 ### Makefile
 一个个来吧，先从Makefile看起
+
 ![1b728e6eb4a5d41b39f35d45582106d](https://user-images.githubusercontent.com/31315527/194986980-60f2e425-3ae7-4441-9916-3bafb2db04d9.png)
+
 `Makefile`里的内容很无聊，只是将`vendor_hooks.c`纳入了编译，`vendor_hooks.c`所属的子模块其实叫`driver/android`
 
 ### Kconfig
 再看下Kconfig
+
 ![9058db7953aacf7590ff101f632e01a](https://user-images.githubusercontent.com/31315527/194987335-17173841-1edb-45ea-ae34-257d10fbc330.png)
+
 也没啥花头，意识是module可以在内核hooks点里注册自己的动作
 
 ### vendor_hooks.c
 回到上面，我们还是先看`vendor_hooks.c`里面究竟做了些啥神奇的东西
+
 ![74a58a3fd5ece5069cbf7d3e8e00e02](https://user-images.githubusercontent.com/31315527/194987858-eb062653-f516-4d6f-9b92-f103b53e1bec.png)
+
 一看就傻眼了，上面一堆include，都是`trace/hooks/xxx.h`，下面一堆`EXPORT_SYMBOL`，让人摸不着头脑。
 
 先看下`EXPORT_TRACEPOINT_SYMBOL_GPL`做了啥
+
 ![1665457782820](https://user-images.githubusercontent.com/31315527/194988318-6e66e4ce-b682-4b16-9185-639bb291360f.png)
+
 平平无奇的符号导出，只不过导出了3种东西，`__tracepoint`，`__traceiter`，`tp_func`。
 所以这3种肯定得有个地方定义对吧，疑点就到了上面的`trace/hooks/xxx.h`
 
 随便到`trace/hooks/sched.h`里看下
+
 ![30d37d4d98c53f4af9603356e48b380](https://user-images.githubusercontent.com/31315527/194988877-bf05c0bf-836c-400d-8415-3201737a7469.png)
+
 重头戏来了
 
 我们看下`DECLARE_RESTRICTED_HOOK`究竟如何实现
+
 ![1665458151208](https://user-images.githubusercontent.com/31315527/194989054-44442743-112b-49a7-8a11-66d9489c0dde.png)
+
+这一个`DECLARE_RESTRICTED_HOOK`的动作，生成了一坨东西
+
+1. `__traceiter_##name`，先不看
+2. `DECLARE_STATIC_CALL`，先不看
+3. `struct tracepoint __tracepoint_##name`，这玩意的结构如下
+
+![1665458973241](https://user-images.githubusercontent.com/31315527/194990653-f6626777-fc0c-4649-8295-7d6c0e5f6d5b.png)
+
+稍微有个印象就好
+
+4. `trace_##name`，这玩意是调用点，调用的话就会通过`DO_HOOK`执行调用点，调用3里的__tracepoint_##name里那个func
+
+5. `trace_##name##_enabled`,这玩意是判断当前trace点是否已经被注册了的
+
+6. `register_trace_##name`这玩意是给trace点注册里面哪个func用的，里面调了`trace_point.c`里的`android_rvh_probe_register`
+
+流水账记到这里，总结下
+`DECLARE_RESTRICTED_HOOK`定义了tracepoint（含func）的**调用**和**注册**接口
 
 
 
