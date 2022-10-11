@@ -8,7 +8,7 @@ android_vendor_hook是AOSP的东西，我们索性先把[codeauora的msm-5.10](h
 
 记得branch选`kernel.lnx.5.10.r1-rel`，这里面qcom的特性都已经加上去
 
-## 分析
+## vendor_hook架构分析
 废话不多说，直接上分析
 
 这玩意的宏是`CONFIG_ANDROID_VENDOR_HOOKS`，先大致看下涉及的文件分布
@@ -86,6 +86,21 @@ android_vendor_hook是AOSP的东西，我们索性先把[codeauora的msm-5.10](h
 
 ### tracepoint.c
 这个是trace点内的func注册用的实际实现函数
+
+## 使用分析
+这边以walt为例
+
+![ef96cecbe7d11d4c89b081aa2e56275](https://user-images.githubusercontent.com/31315527/194993632-f601dda8-73df-4c64-b08c-6896ef530d42.png)
+
+walt涉及到的trace点，要先include
+
+![4066a7fff4b08288c6d3ce9bf121a3c](https://user-images.githubusercontent.com/31315527/194993711-99ee295f-25c2-40ab-845d-d156f460c0df.png)
+
+模块初始化时一通注册，这些tracepoint点就活了
+
+![1665460602413](https://user-images.githubusercontent.com/31315527/194993798-0dfef72b-f0c1-4439-a98d-bcdbf2b8616e.png)
+
+显然注册的时候，得把真正用于实现的东西塞进去
 
 
 
