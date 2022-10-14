@@ -146,6 +146,10 @@ dc419bab7424 ANDROID: fix copyright notice
 626b81751134 ANDROID: GKI: add android_vendor.h
 ```
 
+然后要真的开始干了，日
+
+
+
 
 
 
