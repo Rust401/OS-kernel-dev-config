@@ -146,6 +146,11 @@ dc419bab7424 ANDROID: fix copyright notice (这个要后面打，没啥用其实
 626b81751134 ANDROID: GKI: add android_vendor.h(很容易打)
 ```
 
+### init_task.c
+```
+898e7ec950c16
+```
+
 然后要真的开始干了，日
 
 
