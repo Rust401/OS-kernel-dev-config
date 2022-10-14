@@ -119,6 +119,34 @@ walt涉及到的trace点，要先include
 
 内心还是想回放patch的，硬移就需要各种复制，但鬼知道回放patch会不会给自己留暗坑
 
+整理下patch吧
+
+### vendor_hooks.h
+```txt
+774f1bd29cba ANDROID: Disable CFI on restricted vendor hooks in TRACE_HEADER_MULTI_READ
+cc6eed90a467 ANDROID: vendor_hooks: Allow multiple attachments to restricted hooks
+ba75b92fefa9 ANDROID: simplify vendor hooks for non-GKI builds
+384becf1643b ANDROID: Disable CFI on restricted vendor hooks
+4cc2f83c77aa ANDROID: vendor_hooks: fix __section macro
+5e767aa07eea ANDROID: use static_call() for restricted hooks
+e706f27c765b ANDROID: fix redefinition error for restricted vendor hooks
+7f62740112ef ANDROID: add support for vendor hooks
+```
+
+### tracepoint.c
+```txt
+cc6eed90a467 ANDROID: vendor_hooks: Allow multiple attachments to restricted hooks
+```
+
+### android_vendor.h
+```
+b7a6c15a6f06 ANDROID: Configure out the macros in android_kabi and android_vendor
+c417bec8b3d9 ANDROID: add macros to create OEM data fields
+dc419bab7424 ANDROID: fix copyright notice
+626b81751134 ANDROID: GKI: add android_vendor.h
+```
+
+
 
 
 
