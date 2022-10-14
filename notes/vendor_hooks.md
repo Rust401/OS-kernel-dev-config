@@ -142,8 +142,8 @@ cc6eed90a467 ANDROID: vendor_hooks: Allow multiple attachments to restricted hoo
 ```
 b7a6c15a6f06 ANDROID: Configure out the macros in android_kabi and android_vendor
 c417bec8b3d9 ANDROID: add macros to create OEM data fields
-dc419bab7424 ANDROID: fix copyright notice
-626b81751134 ANDROID: GKI: add android_vendor.h
+dc419bab7424 ANDROID: fix copyright notice (这个要后面打，没啥用其实)
+626b81751134 ANDROID: GKI: add android_vendor.h(很容易打)
 ```
 
 然后要真的开始干了，日
