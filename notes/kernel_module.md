@@ -29,5 +29,24 @@ __arm64_sys_init_module =>
 
 这边先来看张图，`module`在内存里面是放在一起的，`text`用来放代码段，`ro`用来放只读数据，`ro-after-init`用来放初始化做完之后就不用的代码，最后的`writeable`用来放可读写的数据。
 
+接下来看下实际的赋权代码
+
+![adb274b0a195eaf186d8f8fd30111c7](https://user-images.githubusercontent.com/31315527/197720215-d8017a9f-fa47-46cf-8ae6-01fd642164ed.png)
+
+主要对mod设置了3种权限：ro(只读)，nx(不许执行？)，x(可执行)
+
+先看下`module_enable_ro`
+
+![97df0cbb362df9ec9e05a1a0d018432](https://user-images.githubusercontent.com/31315527/197720819-cd6fa326-d10c-4bde-8d35-7766e5148a29.png)
+
+给`core_layout`和`init_layout`的ro和text段设置了只读（如果是after_init的状况，还需要把`ro_after_init`段也设置成ro
+
+这边肯定会有个疑问，**为啥要专门搞出一个init_layout和一个core_layout**，只搞一个layout不香吗？
+
+
+
+
+
+
 
 
