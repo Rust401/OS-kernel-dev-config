@@ -43,6 +43,33 @@ __arm64_sys_init_module =>
 
 这边肯定会有个疑问，**为啥要专门搞出一个init_layout和一个core_layout**，只搞一个layout不香吗？
 
+这个先不管，继续往下看
+
+![1666686210230](https://user-images.githubusercontent.com/31315527/197722493-d4b48d5c-5cba-4d24-8cfb-1244cceb1af8.png)
+
+将ro和writable给赋予nx权限我理解，不让执行，为啥要给`core_layout`的的ro_after_init去nx权限？莫非core_layout里压根就不允许有用于init的代码？
+
+![1666686436588](https://user-images.githubusercontent.com/31315527/197723310-c456a1a2-e281-476b-9de9-a3616763d5e9.png)
+
+设置执行权限x的时候，只对text段生效
+
+`before_init`的情况下上述流程走完之后，我们看下各section当前拥有的权限：
+
+core_layout:
+    text: x, ro
+    ro: nx, ro
+    ro-after-init: nx
+    
+init_layout:
+    text: x, ro
+    ro: nx, ro
+    ro-after-init: NULL
+    
+看来对`ro-after-init`和`writable`没做啥管控
+
+
+
+
 
 
 
