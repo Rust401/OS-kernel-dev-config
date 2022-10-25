@@ -55,6 +55,7 @@ __arm64_sys_init_module =>
 
 `before_init`的情况下上述流程走完之后，我们看下各section当前拥有的权限：
 
+```
 core_layout:
     text: x, ro
     ro: nx, ro
@@ -64,6 +65,7 @@ init_layout:
     text: x, ro
     ro: nx, ro
     ro-after-init: NULL
+```
     
 看来对`ro-after-init`和`writable`没做啥管控
 
