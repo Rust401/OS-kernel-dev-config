@@ -69,7 +69,8 @@ init_layout:
     
 看来对`ro-after-init`和`writable`没做啥管控
 
-
+## Reference
+[insmod flow分析](https://www.cnblogs.com/aspirs/p/15522142.html)
 
 
 
