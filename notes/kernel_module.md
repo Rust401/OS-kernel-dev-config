@@ -72,6 +72,13 @@ init_layout:
 ## Reference
 [insmod flow分析](https://www.cnblogs.com/aspirs/p/15522142.html)
 
+## VA_BITS
+![2a41567f2764c4d76335ede5025068b](https://user-images.githubusercontent.com/31315527/197733766-8177fb58-e540-4dfe-b528-14cf39683e74.png)
+
+虚拟地址的范围
+
+我见过的android设备，貌似都是39，所以很多地址都以ffffffe开头
+
 
 
 
