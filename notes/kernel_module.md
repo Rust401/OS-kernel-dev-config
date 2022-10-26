@@ -85,6 +85,9 @@ load_module() =>
 * 在虚存的`module`区申请了两片地址空间
 * 把`info`里的各sector塞到申请空间的对应的位置
 
+![fe9fce1cc4cf5a518bc4aa5f6010570](https://user-images.githubusercontent.com/31315527/197979084-b8cc95a5-0df5-46e0-ae29-5731b9e6f239.png)
+
+
 
 ## VA_BITS
 ![2a41567f2764c4d76335ede5025068b](https://user-images.githubusercontent.com/31315527/197733766-8177fb58-e540-4dfe-b528-14cf39683e74.png)
