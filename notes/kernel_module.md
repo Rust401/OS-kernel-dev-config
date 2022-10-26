@@ -69,8 +69,22 @@ init_layout:
     
 看来对`ro-after-init`和`writable`没做啥管控
 
-## Reference
-[insmod flow分析](https://www.cnblogs.com/aspirs/p/15522142.html)
+接下来看第一个问题: **.ko这个elf文件里各section，最后被加载到了vm的哪个区域里去了？**
+
+调用链：
+```
+load_module() =>
+     layout_and_allocate() =>
+            move_module() =>
+                    module_alloc()
+```
+
+![d508c17f6ee80a0d3c588588c131353](https://user-images.githubusercontent.com/31315527/197972135-836381d4-f6dd-46f8-b7f5-0d78f53381ed.png)
+
+`move_module`其实做了两件事
+* 在虚存的`module`区申请了两片地址空间
+* 把`info`里的各sector塞到申请空间的对应的位置
+
 
 ## VA_BITS
 ![2a41567f2764c4d76335ede5025068b](https://user-images.githubusercontent.com/31315527/197733766-8177fb58-e540-4dfe-b528-14cf39683e74.png)
@@ -78,6 +92,11 @@ init_layout:
 虚拟地址的范围
 
 我见过的android设备，貌似都是39，所以很多地址都以ffffffe开头
+
+## Reference
+[insmod flow分析](https://www.cnblogs.com/aspirs/p/15522142.html)
+
+
 
 
 
