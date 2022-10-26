@@ -87,7 +87,7 @@ load_module() =>
 
 ![fe9fce1cc4cf5a518bc4aa5f6010570](https://user-images.githubusercontent.com/31315527/197979084-b8cc95a5-0df5-46e0-ae29-5731b9e6f239.png)
 
-
+这里要注意`module_alloc`用的是arm64里面哪个版本，module.c里面实现的weak函数（如果有重名实现，会被非weak的覆盖）
 
 ## VA_BITS
 ![2a41567f2764c4d76335ede5025068b](https://user-images.githubusercontent.com/31315527/197733766-8177fb58-e540-4dfe-b528-14cf39683e74.png)
