@@ -104,7 +104,7 @@ tick的时候，走的是平平无奇的`TASK_UPDATE`。
 这边单纯用`IRQ_UPDATE`去更新中断负载。
 
 ## 几个有趣的问题 
-### 哪些event需要被计算到cpu的busytime中呢
+### 哪些event需要被计算到cpu的busytime中呢？
 
 ![1669107295232](https://user-images.githubusercontent.com/31315527/203269655-ad712f79-510f-4eb2-8278-04060e202203.png)
 
@@ -116,6 +116,39 @@ tick的时候，走的是平平无奇的`TASK_UPDATE`。
 
 如果某个event压根不用更新rq负载，那此次update_cpu_busy_time就到此为止了。
 
+### 如何根据执行时间去换算真正的负载？
+
+![1669118580243](https://user-images.githubusercontent.com/31315527/203309224-8a630639-8841-4f50-b650-bce50069cada.png)
+
+这边需要通过`scale_exec_time`对时间做一个换算
+
+![e6fee613bed71f6db08e1881447e5b5](https://user-images.githubusercontent.com/31315527/203309499-fe3e402c-8a77-4d43-81f8-facc94487b3c.png)
+
+本质上要乘一个系数，但这个系统是咋算的
+
+![1669118739778](https://user-images.githubusercontent.com/31315527/203309700-88be2cc9-b27c-4ce4-9e81-a536ab4594ec.png)
+
+`update_task_rq_cpu_cycles`里做了这个`task_exec_scale`更新的动作，在每次`update_task_ravg`的开头都会干这个
+
+这边也很好理解，用`这段时间消耗掉的cycles/这段时间本cpu最多可以跑多少个cycles`，再乘上`本cpu的归一化的capacity`
+
+归结起来，无非是两层缩放：
+
+* 本cpu对比最强cpu的capacity的缩放
+* 本cpu当前频点对于该cpu的最大频点的缩放
+
+举个例子，一个任务在大核（capacity = 1000）用最大频率（3000 mHZ）跑满一个窗口时，它对该核的负载贡献是1
+
+那么，当一个任务在中核（capacity = 500）用中核的一半频率频率（2000 * 0.5 mHZ）跑满一个窗口时，它对该核的负载贡献为 (500 / 1000) * 0.5 = 0.25
+
+这个1和0.25就是这两个任务的**绝对贡献**，是统一参考系之后的结果
+
+### 负载的本质是什么？
+负载的本质就是，**完成这个任务，需要消耗我多少的有效指令**
+
+换算到每个核之上，可以转换为**需要多少cycles去完成这个任务**
+
+再深入往下看，那就是**cpu需要消耗多少能量去完成这件事了**
 
 
 
