@@ -43,6 +43,19 @@ WALT负载更新的入口是`walt_update_task_ravg`
 
 tick入口处，要先更新下负载
 
+![1669089106898](https://user-images.githubusercontent.com/31315527/203217074-4b1993f1-c8ee-4489-bd4f-77a330bfe0dc.png)
+
+tick的时候，走的是平平无奇的`TASK_UPDATE`。
+
+当然，如果tick的时候发生调度了，那就又要重走`__schedule`的老路了。
+
+另外，在hw_schedutil的加持下，tikc的时候显然也得调频。
+
+
+
+
+
+
 
 
 
