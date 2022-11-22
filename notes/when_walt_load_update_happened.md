@@ -103,29 +103,18 @@ tick的时候，走的是平平无奇的`TASK_UPDATE`。
 
 这边单纯用`IRQ_UPDATE`去更新中断负载。
 
+## 几个有趣的问题 
+### 哪些event需要被计算到cpu的busytime中呢
 
+![1669107295232](https://user-images.githubusercontent.com/31315527/203269655-ad712f79-510f-4eb2-8278-04060e202203.png)
 
+* 如果撤下idle、更新idle、idle上跑了中断，此时将**中断**或者**等io**的时间算到负载内；
+* 如果任务刚唤醒，就别统计时间了；
+* 如果上一个非idle的task刚刚溜溜，或者由中断触发的更新，那就无脑算上；
+* 如果是常规的任务更新，看是不是cpu上的curr，如果是就统计，如果只是runnable的，那就判断`SCHED_FREQ_ACCOUNT_WAIT_TIME`开着没有，开的话就把runnable的time也算上去；
+* 迁移、选下个任务的时候，同样判断`SCHED_FREQ_ACCOUNT_WAIT_TIME`，决定是否将task负载计入rq负载；
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+如果某个event压根不用更新rq负载，那此次update_cpu_busy_time就到此为止了。
 
 
 
