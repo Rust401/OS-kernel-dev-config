@@ -51,6 +51,20 @@ tick的时候，走的是平平无奇的`TASK_UPDATE`。
 
 另外，在hw_schedutil的加持下，tikc的时候显然也得调频。
 
+### try_to_wake_up
+
+![3f6ec521371b9b1ac687a18ecd50382](https://user-images.githubusercontent.com/31315527/203217789-74425927-e9a8-4391-92e1-0aa42137978a.png)
+
+唤醒选rq时，要先更新一波负载
+
+![1669089577855](https://user-images.githubusercontent.com/31315527/203218034-04244ef7-8b18-4e5f-b9a6-220543fa02b8.png)
+
+这边也好理解，唤醒别人时，先`TASK_UPDATE`自己，然后再以`TASK_WAKE`的事件更新被唤醒者。
+
+
+
+
+
 
 
 
