@@ -97,6 +97,12 @@ tick的时候，走的是平平无奇的`TASK_UPDATE`。
 
 （上面那3句描述太绕了，其实归纳下就是老核上的curr和p都更新下，然后目标核上的curr更新下）
 
+### walt_sched_account_irqend
+
+![28c3a305e58388d599f41b32d74c455](https://user-images.githubusercontent.com/31315527/203260911-0ee2e115-268e-4081-a9c8-a3003f5440a2.png)
+
+这边单纯用`IRQ_UPDATE`去更新中断负载。
+
 
 
 
