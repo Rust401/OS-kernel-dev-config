@@ -33,6 +33,24 @@ WALT负载更新的入口是`walt_update_task_ravg`
 
 如果下个任务还是先前跑的那个任务，那就单纯做一遍`TASK_UPDATE`
 
+**负载更新是不是就意味着调频呢？** **不一定**。
+
+但这`__schedule`这个场景中，由于hw_schedutil的存在，负载更新之后，就会顺便调个频。
+
+### scheduler_tick
+
+![8c10147a8fd887abeeee79e6ab3e804](https://user-images.githubusercontent.com/31315527/203208400-bf529742-a07b-417a-b198-882e3b58f848.png)
+
+tick入口处，要先更新下负载
+
+
+
+
+
+
+
+
+
 
 
 
