@@ -61,6 +61,49 @@ tick的时候，走的是平平无奇的`TASK_UPDATE`。
 
 这边也好理解，唤醒别人时，先`TASK_UPDATE`自己，然后再以`TASK_WAKE`的事件更新被唤醒者。
 
+### walt_irq_work
+
+![1669097950892](https://user-images.githubusercontent.com/31315527/203239550-46c766d5-1560-4f08-a8be-51626d0db02b.png)
+
+`walt_irq_work`会发生在每次`update_task_ravg`的末尾，里面会拿住所有cpu的rq锁之后，再最所有cpu做一遍`TASK_UPDATE`版的`update_task_ravg`。
+
+这边不会无限套娃吗？不会，因为只有当窗口切换时(window_rollover)，才会触发walt_irq_work。
+
+### transfer_busy_time
+
+![1669101722252](https://user-images.githubusercontent.com/31315527/203250419-2dc50407-bb74-4683-8c27-1859ffecc250.png)
+
+这玩意是线程在组间迁移，用于修复由于task的进出对grp负载的影响
+
+先以`TASK_UPDATE`更新rq上的curr，再以`TASK_UPDATE`去更新即将加组/退组的线程
+
+### cpufreq_notifier_trans
+
+![79e9256c6069db06abd9b1722a96b1a](https://user-images.githubusercontent.com/31315527/203255198-84765b3e-0e8d-46bc-a40d-387284658e8e.png)
+
+如果频点要更新了，该cpu所属cluster上的所有cpu，都要做一遍`TASK_UPDATE`。
+
+### fixup_busy_time
+
+![1669103424048](https://user-images.githubusercontent.com/31315527/203256070-a37c86f6-186e-4cbd-af1d-02d0d40f6de3.png)
+
+迁核的时候要做更新
+
+先`TASK_UPDATE`更新目标task当前所属的cpu上的curr
+
+再`TASK_UPDATE`更新目标cpu和目标cpu当前跑的task
+
+最后`TASK_MIGRATE`更新当前task和当前task目前在的那个rq
+
+（上面那3句描述太绕了，其实归纳下就是老核上的curr和p都更新下，然后目标核上的curr更新下）
+
+
+
+
+
+
+
+
 
 
 
