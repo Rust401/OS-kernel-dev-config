@@ -112,7 +112,7 @@ tick的时候，走的是平平无奇的`TASK_UPDATE`。
 * 如果任务刚唤醒，就别统计时间了；
 * 如果上一个非idle的task刚刚溜溜，或者由中断触发的更新，那就无脑算上；
 * 如果是常规的任务更新，看是不是cpu上的curr，如果是就统计，如果只是runnable的，那就判断`SCHED_FREQ_ACCOUNT_WAIT_TIME`开着没有，开的话就把runnable的time也算上去；
-* 迁移、选下个任务的时候，同样判断`SCHED_FREQ_ACCOUNT_WAIT_TIME`，决定是否将task负载计入rq负载；
+* 迁移、选下个任务的时候，同样判断`SCHED_FREQ_ACCOUNT_WAIT_TIME`，决定是否将task负载计入rq负载。这个其实蛮好理解的，迁之前，这个任务是等在原来的核上的，那迁走之前，把这部分等的负载计算上去，十分合理。同样，被`pick_next_task`选择之前，这个任务也以ready状态在这个核上等了很久，context_switch发生之前，需要把task等的时间算在rq的负载上（需要，但没被满足的负载）
 
 如果某个event压根不用更新rq负载，那此次update_cpu_busy_time就到此为止了。
 
