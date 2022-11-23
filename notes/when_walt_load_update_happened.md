@@ -154,6 +154,50 @@ tick的时候，走的是平平无奇的`TASK_UPDATE`。
 
 ### 每个核的窗口切换是同步的吗？
 
+### 从task的视角来看，负载时如何更新的？
+
+### rq的视角来看，负载是如何更新的？
+
+task皆过客，rq负载才会真正去影响调频。`update_task_ravg`的declaration长这样
+```c
+static void walt_update_task_ravg(struct task_struct *p, struct rq *rq, int event, u64 wallclock, u64 irqtime);
+```
+一次更新，需要确定被更新的task，被更新的rq，以什么事件更新，在什么事件更新，是否处于中断更新
+
+这些条件会共同决定，此段period是否会被计算到task负载上，以及这个task的负载的变化，是否需要同步到对应的rq上
+
+task和rq的关系其实非常微妙，有3种情况，**在rq上跑**，**在rq上等**，**压根不在rq上**
+
+### 哪些情况的负载更新会触发task维度的负载更新呢？
+
+![8c7d9dcdff9548cd4330e330e895638](https://user-images.githubusercontent.com/31315527/203496177-2782f78a-03a6-4f6a-81c9-84220fbe1332.png)
+
+* idle显然不用
+* 刚唤醒的不用
+* 从idle去pick下一个任务p时，下一个任务p不用
+* p不在
+*
+
+### wts->mark_start是如何更新的？
+
+![3ba1e674a0096e37f235c81a50d7bf4](https://user-images.githubusercontent.com/31315527/203498150-fc58e9c5-c041-4eff-a30e-6a854a2f5d4e.png)
+
+单次`update_task_ravg`结束后，`task`的`mark_start`会被更新
+
+光这么看肯定很抽象，说一个实际的example：
+
+某个task在一个cpu上执行，从窗口的第5ms开始跑，跑到第10ms，紧接着睡了5ms，又接着跑了3ms
+
+这里面实际跑的时间是[5, 10]和[15, 18]
+
+其实在5之前，这个task刚以
+
+
+
+
+
+
+
 
 
 
