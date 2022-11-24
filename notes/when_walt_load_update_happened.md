@@ -196,7 +196,21 @@ task和rq的关系其实非常微妙，有3种情况，**在rq上跑**，**在rq
 
 紧接着，真的上核跑之前，发生了一次`curr`和该task的context_switch，这会的的event是`PICK_NEXT_TASK`，此时mark_start又一次被更新到到了pick事件发生时
 
-然后这个任务跑到tick，触发了一次`TASK_UPDATE`，mark_start再次更新（当然这种从`PICK_NEXT_TASK`->`TASK_UPDATE`)
+然后这个任务跑到tick，触发了一次`TASK_UPDATE`，mark_start再次更新（当然这种从`PICK_NEXT_TASK`->`TASK_UPDATE`)，基本都会被计算到task负载和rq负载中
+
+继续跑，这个task不执行了(要么就是普通的runnable，要么就是直接block住了)，被某次context_switch以`PUT_PREV`事件换下来了，mark_start又一次更新，(`TASK_UPDATE`->`PUT_PREV_TASK`之间的时间又要被算进task和rq负载了)
+
+假定这个task被cs换下来了，此时处于runnalbe状态，然后这个过程中发生了一个**迁核**的动作，这边就很关键了
+
+迁核先会更新老核和新核的curr，然后在老核上以`TASK_MIGRATE`事件更新p的负载，（`PUT_PREV_TASK`->`TASK_MIGRATE`这之间的时间，也属于runnable时间，当前会统计在task的负载上，但不会统计进rq的负载）
+
+迁核时通过fixup_busy_time进行，负载更新完之后，走inter_cluster_migration_fixu去实现任务跑走后，rq上负载的增减
+
+
+
+
+
+
 
 
 
