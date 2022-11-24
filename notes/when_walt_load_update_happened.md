@@ -104,8 +104,17 @@ tick的时候，走的是平平无奇的`TASK_UPDATE`。
 这边单纯用`IRQ_UPDATE`去更新中断负载。
 
 ## 几个有趣的问题 
-### 哪些event需要被计算到cpu的busytime中呢？
+### 哪些event的负载更新会触发task维度的负载更新呢？
+贼重要哦一个函数`account_busy_for_task_demand`
+![8c7d9dcdff9548cd4330e330e895638](https://user-images.githubusercontent.com/31315527/203496177-2782f78a-03a6-4f6a-81c9-84220fbe1332.png)
 
+* idle显然不用
+* 刚唤醒的不用
+* 从idle去pick下一个任务p时，下一个任务p不用(都idle了还不上，说明不是真的在等）
+* 正常的pick和migrate都要（要把runnable时间算上）
+* 正常的task_update要（curr无脑要算，on_rq也要，但非on_rq的update不要）
+### 哪些event需要被计算到cpu的busytime中呢？
+贼重要一个函数`account_busy_for_cpu_time`
 ![1669107295232](https://user-images.githubusercontent.com/31315527/203269655-ad712f79-510f-4eb2-8278-04060e202203.png)
 
 * 如果撤下idle、更新idle、idle上跑了中断，此时将**中断**或者**等io**的时间算到负载内；
@@ -169,16 +178,6 @@ static void walt_update_task_ravg(struct task_struct *p, struct rq *rq, int even
 这些条件会共同决定，此段period是否会被计算到task负载上，以及这个task的负载的变化，是否需要同步到对应的rq上
 
 task和rq的关系其实非常微妙，有3种情况，**在rq上跑**，**在rq上等**，**压根不在rq上**
-
-### 哪些情况的负载更新会触发task维度的负载更新呢？
-
-![8c7d9dcdff9548cd4330e330e895638](https://user-images.githubusercontent.com/31315527/203496177-2782f78a-03a6-4f6a-81c9-84220fbe1332.png)
-
-* idle显然不用
-* 刚唤醒的不用
-* 从idle去pick下一个任务p时，下一个任务p不用(都idle了还不上，说明不是真的在等）
-* 正常的pick和migrate都要（要把runnable时间算上）
-* 正常的task_update要（curr无脑要算，on_rq也要，但非on_rq的update不要）
 
 ### wts->mark_start是如何更新的？
 
