@@ -153,8 +153,10 @@ tick的时候，走的是平平无奇的`TASK_UPDATE`。
 能量的cost是没有约束的情况下的说法，如果有完成时间的约束，不得不牺牲一些能量，去获取更好的执行速度
 
 ### 每个核的窗口切换是同步的吗？
+是的
 
 ### 从task的视角来看，负载时如何更新的？
+mark_start那个问题里回答了
 
 ### rq的视角来看，负载是如何更新的？
 
@@ -206,10 +208,7 @@ task和rq的关系其实非常微妙，有3种情况，**在rq上跑**，**在rq
 
 迁核时通过fixup_busy_time进行，负载更新完之后，走`inter_cluster_migration_fixup`去实现任务跑走后，rq上负载的增减
 
-
-
-
-
+![64823429f7b6bb14efe25d255a90997](https://user-images.githubusercontent.com/31315527/203720088-71105bcb-12ac-4601-8deb-1b48708725b2.png)
 
 # 方案
 # 洞察
