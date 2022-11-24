@@ -35,7 +35,7 @@ WALT负载更新的入口是`walt_update_task_ravg`
 
 **负载更新是不是就意味着调频呢？** **不一定**。
 
-但这`__schedule`这个场景中，由于hw_schedutil的存在，负载更新之后，就会顺便调个频。
+但这`__schedule`这个场景中，由于xx_schedutil的存在，负载更新之后，就会顺便调个频。
 
 ### scheduler_tick
 
@@ -49,7 +49,7 @@ tick的时候，走的是平平无奇的`TASK_UPDATE`。
 
 当然，如果tick的时候发生调度了，那就又要重走`__schedule`的老路了。
 
-另外，在hw_schedutil的加持下，tikc的时候显然也得调频。
+另外，在xx_schedutil的加持下，tikc的时候显然也得调频。
 
 ### try_to_wake_up
 
