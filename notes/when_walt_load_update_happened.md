@@ -174,9 +174,9 @@ task和rq的关系其实非常微妙，有3种情况，**在rq上跑**，**在rq
 
 * idle显然不用
 * 刚唤醒的不用
-* 从idle去pick下一个任务p时，下一个任务p不用
-* p不在
-*
+* 从idle去pick下一个任务p时，下一个任务p不用(都idle了还不上，说明不是真的在等）
+* 正常的pick和migrate都要（要把runnable时间算上）
+* 正常的task_update要（curr无脑要算，on_rq也要，但非on_rq的update不要）
 
 ### wts->mark_start是如何更新的？
 
@@ -204,21 +204,7 @@ task和rq的关系其实非常微妙，有3种情况，**在rq上跑**，**在rq
 
 迁核先会更新老核和新核的curr，然后在老核上以`TASK_MIGRATE`事件更新p的负载，（`PUT_PREV_TASK`->`TASK_MIGRATE`这之间的时间，也属于runnable时间，当前会统计在task的负载上，但不会统计进rq的负载）
 
-迁核时通过fixup_busy_time进行，负载更新完之后，走inter_cluster_migration_fixu去实现任务跑走后，rq上负载的增减
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+迁核时通过fixup_busy_time进行，负载更新完之后，走`inter_cluster_migration_fixup`去实现任务跑走后，rq上负载的增减
 
 
 
