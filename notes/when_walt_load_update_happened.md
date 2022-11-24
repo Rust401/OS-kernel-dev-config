@@ -190,7 +190,13 @@ task和rq的关系其实非常微妙，有3种情况，**在rq上跑**，**在rq
 
 这里面实际跑的时间是[5, 10]和[15, 18]
 
-其实在5之前，这个task刚以
+假设5之前，这个task刚从sleep被唤醒入队
+
+这个task刚以`TASK_WAKE`的事件更新了一遍负载，mark_start此时变成了wake的那个时间点
+
+紧接着，真的上核跑之前，发生了一次`curr`和该task的context_switch，这会的的event是`PICK_NEXT_TASK`，此时mark_start又一次被更新到到了pick事件发生时
+
+然后这个任务跑到tick，触发了一次`TASK_UPDATE`，mark_start再次更新（当然这种从`PICK_NEXT_TASK`->`TASK_UPDATE`)
 
 
 
