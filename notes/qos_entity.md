@@ -52,4 +52,6 @@ qos_entity可在`task_struct之间传递`
 插队、传递、支持的属性、由系统去指定
 
 # 一些小总结
-思想是，一个thread可以有n个qos_entity，分别来自不同的
+思想是，一个thread可以有n个qos_entity，分别来自不同的模块，或者传递
+
+至于最后怎么生效，真正下发前，会拿各entity的规则算一下。
