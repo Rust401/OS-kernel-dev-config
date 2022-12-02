@@ -2,6 +2,10 @@
 ![a23e4052c8822bdc65a03c87c9f4576](https://user-images.githubusercontent.com/31315527/204992060-17b58881-bcdf-4011-8b3d-10ca57b8a9f2.png)
 
 这是个混合内核，主要由mach和FreeBSD拼接而成。调度部分在mach里面，syscall，posix接口这部分，在BSD部分
+ 
+xnu的进线程模型和linux类似
+
+`task`是最小的资源管理单位，`thread`是最小的调度单位
 
 # Reference
 [darwin-xnu-github](https://github.com/apple/darwin-xnu)
