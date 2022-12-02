@@ -12,3 +12,5 @@
 
 [mach-scheduling](https://developer.apple.com/library/archive/documentation/Darwin/Conceptual/KernelProgramming/scheduler/scheduler.html#//apple_ref/doc/uid/TP30000905-CH211-BEHJDFCA)
 
+[一些网友对xnu的理解](https://juejin.cn/post/7028399813720801288)
+
