@@ -209,6 +209,11 @@ task和rq的关系其实非常微妙，有3种情况，**在rq上跑**，**在rq
 
 ![64823429f7b6bb14efe25d255a90997](https://user-images.githubusercontent.com/31315527/203720088-71105bcb-12ac-4601-8deb-1b48708725b2.png)
 
+## 再讲句屁话
+`inter_cluster_migration_fixup`这个函数很重要，task迁移时，负载能不能被带走，全靠它
+
+当前调频用的是`prev_runnable_sum`，这玩意不算runnable，和cumulative_runnable_xxx不是一个东西
+
 # 方案
 # 洞察
 # 观点
