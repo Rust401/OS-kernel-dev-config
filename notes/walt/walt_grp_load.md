@@ -52,6 +52,7 @@ transfer_busy_time(rq, grp, p, ADD_TASK);
 流程：
 1. rq的`prev_runnable_sum`和`current_runnable_sum`里把task的`prev_window_cpu[cpu]`和`cur_window_cpu[cpu]`减掉
   * rq上不会直接减wts->prev/curr_window，毕竟prev/curr_window可不是单一核贡献出来的
+  &nbsp;
 
 2. 执行`update_cluster_load_subtractions`，把task在两个tracked_window里对同cluster上别的cpu的贡献收集起来，后面再用
   * tracked_window就是指prev和curr
