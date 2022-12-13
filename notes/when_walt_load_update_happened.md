@@ -69,6 +69,32 @@ tick的时候，走的是平平无奇的`TASK_UPDATE`。
 
 这边不会无限套娃吗？不会，因为只有当窗口切换时(window_rollover)，才会触发walt_irq_work。
 
+![1670916696948](https://user-images.githubusercontent.com/31315527/207253541-7e4e0ab2-1454-4827-8e2d-5be7727820c1.png)
+
+如果本次`update_task_ravg`发生时，下个窗口还没到来，直接返回
+
+如果窗口已经更新，且没人结算过，就把`walt_cpufreq_irq_work`挂到一个硬中断中去执行
+
+这里面很重点的是那个`atomic64_cmpxchg(a, b, c)`，让人看不懂
+
+其实它本意是a和b比一比
+
+如果数值相同
+
+就把c赋值给a
+
+如果c赋值给a成功了
+
+就返回b
+
+结合到这个场景里面，`walt_irq_work_lastq_ws`和`old_window_start`数值相同，说明**本窗口内还没irq_work过**
+
+所以用新的`wrq->window_start`更新`walt_irq_work_lastq_ws`
+
+然后触发`walt_cpufreq_irq_work`
+
+所以这里的重点，**一定要窗口rollover了**，这个`walt_cpufreq_irq_work`才会真正生效
+
 ### transfer_busy_time
 
 ![1669101722252](https://user-images.githubusercontent.com/31315527/203250419-2dc50407-bb74-4683-8c27-1859ffecc250.png)
