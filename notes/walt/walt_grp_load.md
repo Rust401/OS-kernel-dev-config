@@ -51,19 +51,19 @@ transfer_busy_time(rq, grp, p, ADD_TASK);
 
 流程：
 1. rq的`prev_runnable_sum`和`current_runnable_sum`里把task的`prev_window_cpu[cpu]`和`cur_window_cpu[cpu]`减掉
-* rq上不会直接减wts->prev/curr_window，毕竟prev/curr_window可不是单一核贡献出来的
+  * rq上不会直接减wts->prev/curr_window，毕竟prev/curr_window可不是单一核贡献出来的
 
 2. 执行`update_cluster_load_subtractions`，把task在两个tracked_window里对同cluster上别的cpu的贡献收集起来，后面再用
-* tracked_window就是指prev和curr
-* 步骤1里面，只从task的当前rq上把task的负载贡献减掉，**同cluster的其它rq仍旧留有该task的痕迹，但当前状况又不方便更新其它rq上的负载**，因此只能暂存，等合适的时机
-* 合适的时机就是walt_rq_work，有个干净的上下文去拿rq锁，然后去更新一波
+  * tracked_window就是指prev和curr
+  * 步骤1里面，只从task的当前rq上把task的负载贡献减掉，**同cluster的其它rq仍旧留有该task的痕迹，但当前状况又不方便更新其它rq上的负载**，因此只能暂存，等合适的时机
+  * 合适的时机就是walt_rq_work，有个干净的上下文去拿rq锁，然后去更新一波
 
 3. 把task在tracked_window里的负载`prev/curr_window`加到grp里
-* 把task的整体负载贡献丢到grp中
-* 此时rq可能还没rollover，部分task的负载贡献还在rq上存着呢，这个中间态的总量其实是超的，账不平
+  * 把task的整体负载贡献丢到grp中
+  * 此时rq可能还没rollover，部分task的负载贡献还在rq上存着呢，这个中间态的总量其实是超的，账不平
 
 4. 把task在tracked_window里的负载`prev/curr_window_cpu`重新赋值，re_init当前task的"负载分布曲线"
-* 其实这个步骤影响并不大，这只是个非关键统计信息
+  * 其实这个步骤影响并不大，这只是个非关键统计信息
 
 总结下：
 * 其实这个逻辑很简单，一个哥们儿在两个银行A,B里面存钱，然后每个银行里面有8个账户，他要么在A1-A8里面存，要么在B1-B8里面存，不能有几个账户存在A里，有几个账户存在B里
