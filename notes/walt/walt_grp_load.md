@@ -79,6 +79,40 @@ transfer_busy_time(rq, grp, p, ADD_TASK);
 * 一旦加组，钱就会在账户之间迁移，一旦迁移，哥们儿就会认为，原本**钱散在8个账户里，现在都会集中到当前操作账户上**。
 
 
+#### 退组overview
+
+其实退组和加组总体来说很像，只不过是把**task的负载贡献，从grp上，还回到rq**
+
+对比上面那个银行的例子，就从B丢回到A
+
+流程：
+1. grp的`prev_runnable_sum`和`current_runnable_sum`里把task的`curr/prev_window`减掉
+  * 这边跟加组有区别
+  * 做个猜想：进组之后，负载是聚合的，存到银行B之后，哥们会认为钱只会在1个账户里面，而不会散在其它账户，所以从B回到A时，直接把B那个存钱的账户里面的钱扣光就好了
+  
+&nbsp;
+
+2. 把所有cpu的`prev/curr_window_cpu[i]`清理成零
+  * 原因未知，但跟`inter_cluster_migrations`相关，官方解释说前者不准
+
+&nbsp;
+
+3. 把task在tracked_window里的负载`prev/curr_window`加到rq里
+  * 这边也很trival，task在tracked_window里面对grp的负载，挪回到rq里面
+
+&nbsp;
+
+4. 把task在tracked_window里的负载`prev/curr_window_cpu`重新归一赋值，re_init当前task的"负载分布曲线"
+  * 用上面那个例子，把钱从B挪回到A里面时，把可能已经散在B的各账户的钱，重新归一到一个账户里
+
+&nbsp;
+
+总结下：
+逻辑类似，此时变成哥们儿把钱从B挪回A，由于B里面常年运算，有可能钱已经散在B的各账户里了，不过我们不管。我们直接把哥们儿在B那存的所有钱都给A，然后都放到A的一个账户里
+此时到不至于出现数量超的问题
+
+
+
 
 
 
