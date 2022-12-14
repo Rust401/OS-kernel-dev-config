@@ -112,6 +112,56 @@ transfer_busy_time(rq, grp, p, ADD_TASK);
 此时到不至于出现数量超的问题
 
 
+### task迁核`fixup_busy_time`
+
+调用链不说了，就是set_task_cpu => fixup_busy_time
+
+![1670979018111](https://user-images.githubusercontent.com/31315527/207477307-8ada7b3d-cf8b-41e3-8a07-ae14e9b673e4.png)
+
+核心逻辑在这
+
+### 如果被迁移的task，当前隶属于某个grp
+
+task负载需要在src_rq的grp里面拿掉，放到dest_rq（但这个过程中，task自己的book keeping是不会调动的）
+
+
+```
+这里插播一句，rq上的grp_time，其实包含的是该rq上，所有隶属于某个组的task的负载之和，所以很可能这个grp_time是n个组贡献的
+```
+
+放完之后，会紧接着来一个`walt_migration_irq_work`，用来清算某些数据（比如load_subtractions）
+
+当然，大部分情况下，task的迁核，实际上是不带grp的
+
+### 无grp的task的迁移
+
+那就会走到`inter_cluster_migration_fixup`
+
+如果是同一个freq_domain(cluster)走来走去，那其实啥都不做
+
+```
+这里其实就应该联想到，prev/curr_cpu_window到底是干嘛用的
+单纯的cluster内迁移，并不会引发task维度的booking keeping变化
+所以如果一个task在0cluster上跑来跑去，它的prev/curr_cpu_window[0-3]上应该都有数据
+但如果从cluster0迁到cluster1这种，prev/curr_cpu_window[0-3]会被一并带走
+```
+
+接下来的流程其实和线程加组比较类似
+
+* 直接把task自己的book keeping聚合到prev/curr_cpu_window[new_cpu]上
+
+* 然后dst_rq直接加上prev/curr_window(其实就是聚合后的booking)
+
+* src里面把
+
+
+
+
+
+
+
+
+
 
 
 
