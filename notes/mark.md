@@ -172,8 +172,11 @@ make -j8 ARCH=arm64 CROSS_COMPILE=aarch64-linux-gnu-
 
 ## objdump .o
 ```
-aarch64-linux-gnu-objdump -D -l -g xxx.o > dude_test.txt
+aarch64-linux-gnu-objdump -D -l -g -S xxx.o > dude_test.txt
 ```
+see aarch64-linux-gnu-objdump for more infomation
+
+`-S` is useful to find the matching source code with assembly, no guess!
 
 ## zsh
 ```
