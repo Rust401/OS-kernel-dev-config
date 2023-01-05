@@ -38,4 +38,14 @@ disas /m symbol
 ```
 disas symbol
 ```
+屏幕太长显示不了，就敲回车向下看
 
+另外有个技巧
+
+`p &((struct xxxx*)0)->yyy`可以直接看结构体某个对象对结构体入口的偏移
+
+比如
+
+```
+p &((struct task_struct*)0)->se.group_node
+```
