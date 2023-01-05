@@ -29,3 +29,13 @@ aarch64-linux-gnu-gdb vmlinux
 disas /m symbol+100,symbol+200
 ```
 这个100和200是偏移的起止，10进制的
+
+符号比较短的话，直接
+```
+disas /m symbol
+```
+或
+```
+disas symbol
+```
+
