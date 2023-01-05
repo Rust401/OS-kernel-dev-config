@@ -49,3 +49,4 @@ disas symbol
 ```
 p &((struct task_struct*)0)->se.group_node
 ```
+p就是print的意思
