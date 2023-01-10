@@ -20,6 +20,7 @@ make ARCH=arm64 -C tools/testing/selftests TARGETS=pidfd
 
 这种二进制，目标机器上执行就行了
 
+如果想编x86的，ARCH那个变量改下就好
 
 # Reference
 [kernel self test](https://www.kernel.org/doc/html/v5.0/dev-tools/kselftest.html)
