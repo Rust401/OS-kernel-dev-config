@@ -6,7 +6,7 @@
 make ARCH=arm64 CC=aarch64-linux-gnu-gcc -C tools/testing/selftests TARGETS=pidfd
 ```
 
-**注意！这个CC一定要指定好，需要时arm64的**
+**注意！这个CC一定要指定好，需要是arm64的**
 
 这个`TARGETS`就是
 
