@@ -3,8 +3,10 @@
 
 先进到kernel根目录
 ```
-make ARCH=arm64 -C tools/testing/selftests TARGETS=pidfd
+make ARCH=arm64 CC=aarch64-linux-gnu-gcc -C tools/testing/selftests TARGETS=pidfd
 ```
+
+**注意！这个CC一定要指定好，需要时arm64的**
 
 这个`TARGETS`就是
 
