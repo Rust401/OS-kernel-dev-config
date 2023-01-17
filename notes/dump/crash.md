@@ -22,6 +22,19 @@ make target=ARM64
 
 随便放个有PATH的目录就行
 
+# 有关ko
+插入ko
+```
+mod -s <moudle_name> xxxx.ko
+```
+or
+```
+mod -S /path/to/ko
+```
+后者是知道ko想以什么身份插入的
+
+更多的迷信，就`help mod`看下
+
 # trace.so使能
 
 这玩意是个crash的插件
