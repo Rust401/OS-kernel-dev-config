@@ -1,4 +1,4 @@
-# vim compiel
+# vim compile
 
 
 dependency:
