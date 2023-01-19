@@ -170,6 +170,13 @@ make
 make -j8 ARCH=arm64 CROSS_COMPILE=aarch64-linux-gnu-
 ```
 
+want xxx.o generate at another dir?
+```
+make O=./build ARCH=arm64 CROSS_COMPILE=aarch64-linux-gnu- menuconfig
+
+make O=./build -j32 ARCH=arm64 CROSS_COMPILE=aarch64-linux-gnu-
+```
+
 ## objdump .o
 ```
 aarch64-linux-gnu-objdump -D -l -g -S xxx.o > dude_test.txt
