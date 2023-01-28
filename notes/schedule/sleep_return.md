@@ -1,9 +1,7 @@
-# sleep的本质？
-当调用sleep这个syscall时，系统究竟发生了什么？
+# 阻塞的本质的本质？
+当调用block的syscall(比如sleep,futex_wait这种)时，系统究竟发生了什么？
 
-能讲清楚这个，才算是对内核有了新的了解
-
-# nanosleep分析
+# nanosleep
 sleep是libc里一个函数，对应的底层syscall是`nanosleep`
 
 ![1674891104483](https://user-images.githubusercontent.com/31315527/215253349-f897e7c0-91dc-49dc-923b-2ad80b40e4f6.png)
@@ -27,6 +25,18 @@ sleep是libc里一个函数，对应的底层syscall是`nanosleep`
 切回之后才能从系统调用返回
 
 所以这里有个重点，线程是进去系统调用之类的玩意，卡在一个很深的地方X被调度切走，然后切回来之后，继续从原先卡住的X继续执行
+
+# futex_wait
+前面的流程都差不多，都是通过系统调用进入内核
+
+里面来一波`futex_wait_queue_me`
+
+![1674895470837](https://user-images.githubusercontent.com/31315527/215256436-a23f3066-941a-4cea-93c3-352eabf5b065.png)
+
+套路和`nanosleep`类似
+
+都会走`freezable_schedule()`
+
 
 # 总结
 * sleep本质是触发了调度，`context_switch`是在内核态直接切走的
