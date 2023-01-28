@@ -3,7 +3,7 @@
 
 能讲清楚这个，才算是对内核有了新的了解
 
-# 粗略分析
+# nanosleep分析
 sleep是libc里一个函数，对应的底层syscall是`nanosleep`
 
 ![1674891104483](https://user-images.githubusercontent.com/31315527/215253349-f897e7c0-91dc-49dc-923b-2ad80b40e4f6.png)
@@ -27,6 +27,10 @@ sleep是libc里一个函数，对应的底层syscall是`nanosleep`
 切回之后才能从系统调用返回
 
 所以这里有个重点，线程是进去系统调用之类的玩意，卡在一个很深的地方X被调度切走，然后切回来之后，继续从原先卡住的X继续执行
+
+# 总结
+* sleep本质是触发了调度，`context_switch`是在内核态直接切走的
+* 切回来时，返回到`switch_to`之后，继续执行
 
 
 
