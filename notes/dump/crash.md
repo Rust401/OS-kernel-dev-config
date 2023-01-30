@@ -35,7 +35,7 @@ mod -S /path/to/ko
 
 更多的迷信，就`help mod`看下
 
-# trace.so使能
+# trace使能
 
 这玩意是个crash的插件
 
@@ -43,30 +43,65 @@ mod -S /path/to/ko
 
 [这篇blog](https://www.cnblogs.com/Linux-tech/p/14110330.html)里面有一些universal的介绍
 
-个人也尝试里面的方式去进行编译，但是没有成功
-
 总体流程：
-1. 安装依赖
-2. 安装trace-cmd
-3. 安装trace.so
+1. 安装trace-cmd
+2. 安装trace.so
 
-第一步和第二步在一下博文里面已详细描述
+## 安装trace-cmd
+步骤在其官方github上已经详细描述
 [github:trace-cmd](https://github.com/rostedt/trace-cmd)
 
-第三步参考的github是
+装依赖
+```
+sudo apt-get install build-essential git pkg-config -y
+sudo apt-get install libtracefs-dev libtraceevent-dev -y
+```
+
+如果装不了，需要手动编译`libtraceevent`和`libtracefs`
+```
+git clone https://git.kernel.org/pub/scm/libs/libtrace/libtraceevent.git/
+cd libtraceevent
+make
+sudo make install
+
+git clone https://git.kernel.org/pub/scm/libs/libtrace/libtracefs.git/
+cd libtracefs
+make
+sudo make install
+```
+
+前置搞完直接编译trace-cmd，不用纠结架构，直接上和server一样的x86-64的
+```
+make
+sudo make install
+```
+
+## 安装trace.so
+可以从这边获取源码
 [github:crash-trace](https://github.com/fujitsu/crash-trace)
 
-当前可以正常编译出`trace.so`
+或者从[crash-github](https://github.com/crash-utility/crash)里面选7.2.9的tag
 
-但在crash中尝试load时报错
+从`extensions`里面找trace.c，复制到本地crash的`extensions`目录下
 
 ```
-no commands registered: shared object unloaded
+make extensions target=ARM64
 ```
 
-报错位置其实可以从crash的源码中找到，当前还未分析，pending....
+把产物trace.so放到和vmlinux和vmcore同目录下
 
-![1673596619184](https://user-images.githubusercontent.com/31315527/212267963-77e52044-89b3-4f67-8521-978392d2df13.png)
+## 使用
+先导出
+```
+crash> extend trace.so
+crash> trace dump -t trace.dat
+crash> exit
+```
+
+然后解析
+```
+trace-cmd report trace.dat > trace.txt
+```
 
 
 # Reference
