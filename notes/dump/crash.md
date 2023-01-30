@@ -46,6 +46,7 @@ mod -S /path/to/ko
 总体流程：
 1. 安装trace-cmd
 2. 安装trace.so
+3. 使用
 
 ## 安装trace-cmd
 步骤在其官方github上已经详细描述
