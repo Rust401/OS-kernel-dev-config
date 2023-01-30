@@ -167,7 +167,7 @@ make ARCH=arm64 CROSS_COMPILE=aarch64-linux-gnu- menuconfig
 ```
 make
 ```
-make -j8 ARCH=arm64 CROSS_COMPILE=aarch64-linux-gnu-
+make -j8 ARCH=arm64 CC=clang-12 CROSS_COMPILE=aarch64-linux-gnu-
 ```
 
 want xxx.o generate at another dir?
