@@ -49,5 +49,22 @@ cfs_rq和se则是互相纠缠的关系，se中有cfs_rq, cfs_rq中又通过红�
 
 树上有挂着很多宇宙，宇宙中又有新的树
 
+## 一些有趣的值得思考的问题
+### 当一个group_se中已经没有任务了，这个se还存在吗，其隶属的cfs_rq上还挂着它吗？
+显然group_se是不会消亡的，因为组又没被消灭，它只是从某个cfs_rq上出队了而已
+
+因此从根红黑树开始找，会找不到它
+
+### task_struct、se、group声明周期的纠缠？
+其实可以不用想那么复杂，se和task出入队一样，只会有上下cfs_rq的区分
+
+se其实和task是个强关联的，生命周期几乎同步
+
+task之于rq的关系，就如se之于cfs_rq的关系
+
+至于group，task不管什么state，只要加进group里了，那state就算是S，那也还是属于这个group的
+
+只不过参与调度时，S的任务不在group在各个核的cfs_rq上而已
+
 # Reference
 [wowo-tech的文章-组调度](http://www.wowotech.net/process_management/449.html)
