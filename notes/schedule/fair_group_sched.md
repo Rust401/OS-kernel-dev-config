@@ -1,9 +1,9 @@
 # 有关组调度
-稍微记录下cfs的组调度，免得过一段时间一直忘记
+稍微记录下cfs的组调度
 
 ## 一图胜千言
 ![1675149243682](https://user-images.githubusercontent.com/31315527/215691665-18768e3e-ceb0-4c17-9118-af8cefeae67f.png)
-这个图摘自wowo科技
+(这个图摘自wowo科技)
 
 ## 一些基本概念
 主要会有3个东西傻傻分不清楚，`se`、`cfs_rq`、`task_group`
