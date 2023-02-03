@@ -1,6 +1,6 @@
 # 有关switch_to
 
-## 为啥对switch_to感兴趣
+## 1. 为啥对switch_to感兴趣
 一个线程，往往会因为某种原因进入调度
 
 比如futex、同步binder
@@ -17,7 +17,7 @@
 
 而`context_switch`里最核心的函数，莫过于`switch_to`
 
-## switch_to
+## 2. switch_to
 
 `switch_to`是上下文切换真的的分界线
 
@@ -57,7 +57,7 @@ task认为，它就是就是去内核态里逛了一圈，再溜回来，**中�
 
 从task角度来说，它的栈变化一直是连续的(除了context_switch内prev在switch_to之后会被last覆盖掉)，感知不到调度走到switch_to带来的“切断”
 
-## 一些小问题
+## 3. 一些小问题
 ### 从cpu的视角来看，switch_to之前的prev和next是谁，switch_to之后的prev和next又是谁？
 
 假设cpu视角看到的是A切B
