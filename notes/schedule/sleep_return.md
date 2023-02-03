@@ -20,11 +20,11 @@ sleep是libc里一个函数，对应的底层syscall是`nanosleep`
 
 `__schedule`内部会通过`context_switch`把A的栈保存好(此时栈顶函数就是__)，然后换另外一个哥们儿B执行
 
-当切回A之后，`context_switch`会reload那个A的栈，然后从`__schedule`的内部继续执行
+当切回A之后，`context_switch`会reload那个A的栈，然后从`__schedule`的内部继续执行(**具体是context_switch中那个switch_to那个函数**)
 
 切回之后才能从系统调用返回
 
-所以这里有个重点，线程是进去系统调用之类的玩意，卡在一个很深的地方X被调度切走，然后切回来之后，继续从原先卡住的X继续执行
+所以这里有个重点，线程是进去系统调用之类的玩意，卡在一个很深的地方X被调度切走，然后切回来之后，继续从原先卡住的X继续执行（**遇到switch_to被卡主，然后从switch_to继续执行**）
 
 # futex_wait
 前面的流程都差不多，都是通过系统调用进入内核
@@ -39,7 +39,7 @@ sleep是libc里一个函数，对应的底层syscall是`nanosleep`
 
 
 # 总结
-* sleep本质是触发了调度，`context_switch`是在内核态直接切走的
+* sleep本质是触发了调度，`context_switch`执行到switch_to时，切到另一个线程执行（**对应的内核栈也切了，所以内核栈里的值可能会换掉**）
 * 切回来时，返回到`switch_to`之后，继续执行
 
 
