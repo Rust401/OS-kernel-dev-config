@@ -1,4 +1,4 @@
-# 阻塞的本质的本质？
+# 阻塞的本质？
 当调用block的syscall(比如sleep,futex_wait这种)时，系统究竟发生了什么？
 
 # nanosleep
