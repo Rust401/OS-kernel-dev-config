@@ -47,7 +47,7 @@ AAA1
 switch_to （下cpu/重上cpu，task自己不感知）
 
 AAA2
-```txt
+```
 
 假设这是一个task的视角，AAA1和AAA2执行的代码，**都在它自己的栈上，但有可能是在两个不同的cpu上的**
 
