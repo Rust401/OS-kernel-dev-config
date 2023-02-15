@@ -64,6 +64,11 @@ cat /sys/kernel/debug/sched_features | grep FEATURE_NAME
 FEATURE_NAME means feature enabled
 NO_FEATURE_NAME means feature disabled
 
+to disabled
+```
+echo NO_FEATURE_NAME > /sys/kernel/debug/sched_features
+```
+
 ## bind a task with a CPU
 bind task to target cpu
 ```
