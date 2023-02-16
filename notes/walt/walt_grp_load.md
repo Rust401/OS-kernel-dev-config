@@ -152,11 +152,17 @@ task负载需要在src_rq的grp里面拿掉，放到dest_rq（但这个过程中
 
 * 然后dst_rq直接加上prev/curr_window(其实就是聚合后的booking)
 
-* src里面减掉task的prev/curr_cpu_window[src_cpu]里的值
+* src_rq里面减掉task的prev/curr_cpu_window[src_cpu]里的值(减的是没聚合的值)
 
 * task的prev/curr_cpu_window[src_cpu]清空
 
-* update_cluster_load_substraction做余下的配平
+* update_cluster_load_substraction做余下的配平(等下次irq_work到来)
+
+其实一样的，账没有平，都依赖于irq_work平账
+
+### 重点问题：wts->prev/curr_window_cpu引进的目的到底是啥？
+
+
 
 
 
