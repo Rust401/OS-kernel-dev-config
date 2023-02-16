@@ -1,5 +1,5 @@
 # sync_wake重点
-waker如果知道自己马上进schedule，可以用sync_wake的方式去唤醒wakee(注意是马上进调度，不一定是马上进sleep，比如开抢占就是一个调度时机)
+waker如果知道自己马上进schedule，可以用sync_wake的方式去唤醒wakee(**注意是马上进调度，不一定是马上进sleep，比如开抢占就是一个调度时机**)
 
 倾向于把wakee放在本核上唤醒，顺便标记抢占
 
@@ -15,7 +15,7 @@ wakee下次会等下个中断返回时候再抢占(如果标记了preempt的话)
 
 **Notes：**
 
-抢占必须依赖调度，各种方式的入队抢占，都只是标记，实际调度发生都得依赖于调度，因此需要在系统调用或者中断返回中触发，当然preempt_enable时也有个点
+**抢占必须依赖调度，各种方式的入队抢占，都只是标记，实际调度发生都得依赖于调度，因此需要在系统调用或者中断返回中触发，当然preempt_enable时也有个点**
 
 # 同步binder到底是怎么触发调度的？
 ![1676556165567](https://user-images.githubusercontent.com/31315527/219385760-3539c94a-b402-4f4e-bd96-dff1ef8081ed.png)
