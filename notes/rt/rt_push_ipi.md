@@ -29,4 +29,5 @@ puller给第一个rto核发ipi触发push操作，第一个rto核push完了发ipi
 
 ## Reference
 [PATCH-RT_PUSH_IPI](https://lore.kernel.org/lkml/20150318144946.2f3cc982@gandalf.local.home/)
+
 [实时调度负载均衡](https://github.com/freelancer-leon/notes/blob/master/kernel/sched/sched_rt_load_balance.md)
