@@ -152,8 +152,11 @@ task负载需要在src_rq的grp里面拿掉，放到dest_rq（但这个过程中
 
 * 然后dst_rq直接加上prev/curr_window(其实就是聚合后的booking)
 
-* src里面把
+* src里面减掉task的prev/curr_cpu_window[src_cpu]里的值
 
+* task的prev/curr_cpu_window[src_cpu]清空
+
+* update_cluster_load_substraction做余下的配平
 
 
 
