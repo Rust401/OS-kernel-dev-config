@@ -1,4 +1,4 @@
-# 划重点
+# 同步唤醒重点
 waker如果知道自己马上进sleep，可以用sync_wake的方式去唤醒wakee
 
 倾向于把wakee放在本核上唤醒，顺便标记抢占
