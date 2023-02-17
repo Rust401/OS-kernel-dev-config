@@ -166,11 +166,18 @@ task负载需要在src_rq的grp里面拿掉，放到dest_rq（但这个过程中
 
 ## 实际case简图
 1. 同cluster迁核（无组)
-2. 迁cluster(无组)
-3. 同cluster迁核(有组)
-4. 迁cluster(有组)
-5. 加组
-6. 退组
+
+![1676605406923](https://user-images.githubusercontent.com/31315527/219543989-33d5d335-3d21-4e19-b21a-8056ccbd0d19.png)
+
+cpu记录的占空比不做变更，cycles分布不做变更，仅改**变增量位置**
+
+`inter_cluster_migration_fixup`之前已做各核结算
+
+5. 迁cluster(无组)
+6. 同cluster迁核(有组)
+7. 迁cluster(有组)
+8. 加组
+9. 退组
 
 
 
