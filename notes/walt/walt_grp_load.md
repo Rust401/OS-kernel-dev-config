@@ -206,26 +206,11 @@ task负载需要在src_rq的grp里面拿掉，放到dest_rq（但这个过程中
 * 同cluster见迁移，0-2核负载不会立马减，需要walt_irq_work时才触发减
 * walt_irq_work发生之前账目不平
 
-9. 退组
+6. 退组
+![1676619517395](https://user-images.githubusercontent.com/31315527/219580907-aa7a54a9-8a16-4b2e-a784-f421753e7612.png)
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+* 图例为3核退组，不迁核
+* tsk在tracked window中四散在每个cpu上的贡献，收集在一起，放到tsk当前核上（另外几个核当场就减了，不用等irq）
+* tsk对组负载贡献直接全还给当前rq（**为啥不分别还给每个rq？**因为不准！！！有组的情况下再迁核，贡献根本说不清楚）
 
 
