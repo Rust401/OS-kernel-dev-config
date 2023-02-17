@@ -167,7 +167,7 @@ task负载需要在src_rq的grp里面拿掉，放到dest_rq（但这个过程中
 ## 实际case简图
 1. 同cluster迁核（无组)
 
-![1676605406923](https://user-images.githubusercontent.com/31315527/219543989-33d5d335-3d21-4e19-b21a-8056ccbd0d19.png)
+![1676614889848](https://user-images.githubusercontent.com/31315527/219565080-39313d0b-291d-4bed-ad64-190889e05f11.png)
 
 * cpu记录的占空比不做变更，cycles分布不做变更，仅改**变增量位置**
 
@@ -175,7 +175,8 @@ task负载需要在src_rq的grp里面拿掉，放到dest_rq（但这个过程中
 
 2. 迁cluster(无组)
 
-![1676614582095](https://user-images.githubusercontent.com/31315527/219564333-f3ef658a-b153-4cf3-b4bf-c8062b391cc9.png)
+![1676614856360](https://user-images.githubusercontent.com/31315527/219564983-e9f005af-9a9b-4b10-a71b-4ed9ab7a3cb7.png)
+
 
 * 图例为3核迁4核
 * cluster0中的负载会被一并加到4核上
