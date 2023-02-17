@@ -198,7 +198,14 @@ task负载需要在src_rq的grp里面拿掉，放到dest_rq（但这个过程中
 * 图例为1核迁2核（cluster间迁移，但是负载统计在grp上)
 * 跟case3几乎一样，tsk在tracked_window里的贡献随着迁核，直接移到per_cpu的grp_time上
 
-8. 加组
+5. 加组
+![1676618750068](https://user-images.githubusercontent.com/31315527/219577912-2f444dd3-a543-4bda-a959-7088e18bc8d2.png)
+
+* 图例为3核加组，不迁核
+* tsk在tracked window中四散在每个cpu上的贡献，收集在一起，放到tsk所属rq的grp_time中
+* 同cluster见迁移，0-2核负载不会立马减，需要walt_irq_work时才触发减
+* walt_irq_work发生之前账目不平
+
 9. 退组
 
 
