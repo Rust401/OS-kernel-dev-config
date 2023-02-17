@@ -164,6 +164,16 @@ task负载需要在src_rq的grp里面拿掉，放到dest_rq（但这个过程中
 
 
 
+## 实际case简图
+1. 同cluster迁核（无组)
+2. 迁cluster(无组)
+3. 同cluster迁核(有组)
+4. 迁cluster(有组)
+5. 加组
+6. 退组
+
+
+
 
 
 
