@@ -161,8 +161,8 @@ task负载需要在src_rq的grp里面拿掉，放到dest_rq（但这个过程中
 其实一样的，账没有平，都依赖于irq_work平账
 
 ### 重点问题：wts->prev/curr_window_cpu引进的目的到底是啥？
-
-
+* 为了记忆tsk对每个核上的负载贡献
+* **防止 加组/cluster间迁移时某个核上的负载突变（可能引发无法配平/调频/lb不准）**
 
 ## 实际case简图
 1. 同cluster迁核（无组)
@@ -170,7 +170,7 @@ task负载需要在src_rq的grp里面拿掉，放到dest_rq（但这个过程中
 ![1676614889848](https://user-images.githubusercontent.com/31315527/219565080-39313d0b-291d-4bed-ad64-190889e05f11.png)
 
 * 图为1核迁2核（同cluster）
-* cpu记录的占空比不做变更，cycles分布不做变更，仅改**变增量位置**
+* cpu记录的占空比不做变更，cycles分布不做变更，仅**改变增量位置**
 * `inter_cluster_migration_fixup`之前已做各核结算
 
 2. 迁cluster(无组)
