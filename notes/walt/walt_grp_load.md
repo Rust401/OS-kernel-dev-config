@@ -169,8 +169,8 @@ task负载需要在src_rq的grp里面拿掉，放到dest_rq（但这个过程中
 
 ![1676614889848](https://user-images.githubusercontent.com/31315527/219565080-39313d0b-291d-4bed-ad64-190889e05f11.png)
 
+* 图为1核迁2核（同cluster）
 * cpu记录的占空比不做变更，cycles分布不做变更，仅改**变增量位置**
-
 * `inter_cluster_migration_fixup`之前已做各核结算
 
 2. 迁cluster(无组)
@@ -185,8 +185,19 @@ task负载需要在src_rq的grp里面拿掉，放到dest_rq（但这个过程中
 * 4核承载了tsk在tracked window中对cluster0所有的负载
 * walt_irq_work发生之前账目不平
 
-6. 同cluster迁核(有组)
-7. 迁cluster(有组)
+3. 同cluster迁核(有组)
+![1676615919994](https://user-images.githubusercontent.com/31315527/219568340-df55d3cf-1ca8-4eb9-a949-9f3b67be3951.png)
+
+* 图例为1核迁2核（同cluster，但是负载统计在grp上)
+* 直接将tsk在tracked_window里负载全都从1核的grp_time上移动到2核的grp_time（有何用意？）
+
+4. 迁cluster(有组)
+![1676617256045](https://user-images.githubusercontent.com/31315527/219572507-44c0800f-6560-4628-aa1a-17c89dc27a29.png)
+
+
+* 图例为1核迁2核（cluster间迁移，但是负载统计在grp上)
+* 跟case3几乎一样，tsk在tracked_window里的贡献随着迁核，直接移到per_cpu的grp_time上
+
 8. 加组
 9. 退组
 
