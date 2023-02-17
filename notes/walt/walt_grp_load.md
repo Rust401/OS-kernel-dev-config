@@ -148,9 +148,9 @@ task负载需要在src_rq的grp里面拿掉，放到dest_rq（但这个过程中
 
 接下来的流程其实和线程加组比较类似
 
-* 直接把task自己的book keeping聚合到prev/curr_cpu_window[new_cpu]上
+* 直接把task自己的book keeping聚合到wts->prev/curr_cpu_window[new_cpu]上
 
-* 然后dst_rq直接加上prev/curr_window(其实就是聚合后的booking)
+* 然后dst_rq直接加上wts->prev/curr_window(其实就是聚合后的booking)
 
 * src_rq里面减掉task的prev/curr_cpu_window[src_cpu]里的值(减的是没聚合的值)
 
@@ -169,11 +169,18 @@ task负载需要在src_rq的grp里面拿掉，放到dest_rq（但这个过程中
 
 ![1676605406923](https://user-images.githubusercontent.com/31315527/219543989-33d5d335-3d21-4e19-b21a-8056ccbd0d19.png)
 
-cpu记录的占空比不做变更，cycles分布不做变更，仅改**变增量位置**
+* cpu记录的占空比不做变更，cycles分布不做变更，仅改**变增量位置**
 
-`inter_cluster_migration_fixup`之前已做各核结算
+* `inter_cluster_migration_fixup`之前已做各核结算
 
-5. 迁cluster(无组)
+2. 迁cluster(无组)
+
+
+
+
+
+
+
 6. 同cluster迁核(有组)
 7. 迁cluster(有组)
 8. 加组
