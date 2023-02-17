@@ -175,11 +175,14 @@ task负载需要在src_rq的grp里面拿掉，放到dest_rq（但这个过程中
 
 2. 迁cluster(无组)
 
+![1676614582095](https://user-images.githubusercontent.com/31315527/219564333-f3ef658a-b153-4cf3-b4bf-c8062b391cc9.png)
 
-
-
-
-
+* 图例为3核迁4核
+* cluster0中的负载会被一并加到4核上
+* 0-2核负载不会立马减，需要walt_irq_work时才触发减
+* 3核只移出tsk在tracked window中对3核的贡献部分
+* 4核承载了tsk在tracked window中对cluster0所有的负载
+* walt_irq_work发生之前账目不平
 
 6. 同cluster迁核(有组)
 7. 迁cluster(有组)
