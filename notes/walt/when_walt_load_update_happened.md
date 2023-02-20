@@ -235,6 +235,14 @@ task和rq的关系其实非常微妙，有3种情况，**在rq上跑**，**在rq
 
 ![64823429f7b6bb14efe25d255a90997](https://user-images.githubusercontent.com/31315527/203720088-71105bcb-12ac-4601-8deb-1b48708725b2.png)
 
+### 为啥出入队不对负载做结算？
+
+入队: 入队要么迁移，要么唤醒，迁移路径和唤醒路径上都有set_task_cpu，里面都有`fixup_busy_time`
+
+出队: 两种出队方式，sleep出队或者迁移出队。sleep出队时，running之后没有runnable，PUT_PREV_TASK事件一把结算，下回唤醒结算再说。迁移出队时，负载已经被`fixup_busy_time`更新了。
+
+### walt的lb依据的是哪个变量？
+
 ## 再讲句屁话
 `inter_cluster_migration_fixup`这个函数很重要，task迁移时，负载能不能被带走，全靠它
 
