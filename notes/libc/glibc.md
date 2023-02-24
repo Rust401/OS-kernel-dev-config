@@ -11,3 +11,13 @@ export glibc_install="$(pwd)/install"
 make -j `nproc`
 make install -j `nproc`
 ```
+
+## 重点
+这玩意的历史包袱太重了，代码读起来也很累很扯
+
+不如看小清新一点的[musl-libc](https://git.musl-libc.org/cgit/musl)
+
+## Reference
+[glibc](https://www.gnu.org/software/libc/)
+
+[glibc-wiki](https://en.wikipedia.org/wiki/Glibc)
