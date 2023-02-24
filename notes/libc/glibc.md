@@ -1,15 +1,26 @@
 ## Compile
 
 ```
-git clone git://sourceware.org/git/glibc.git
-cd glibc
-git checkout glibc-2.32
+git clone https://github.com/bminor/glibc/tree/release/2.37/master
+```
+
+must build in another dir
+```
 mkdir build
 cd build
+```
+
+prefix must be config
+```
 export glibc_install="$(pwd)/install"
 ../configure --prefix "$glibc_install"
-make -j `nproc`
-make install -j `nproc`
+make
+make install
+```
+
+如果使用bear，确保`compile_commands.json`生成在合适位置
+```
+bear -o ../compile_commands.json make
 ```
 
 ## 重点
