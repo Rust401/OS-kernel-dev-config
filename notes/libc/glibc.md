@@ -23,7 +23,7 @@ make install
 bear -o ../compile_commands.json make
 ```
 
-## 重点
+## Notes
 这玩意的历史包袱太重了，代码读起来也很累很扯
 
 不如看小清新一点的[musl-libc](https://git.musl-libc.org/cgit/musl)
