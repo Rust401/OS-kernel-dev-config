@@ -34,6 +34,41 @@
 
 对se来说，`load_avg`就是一个weight加权后的`runnable_avg`
 
+## pelt体系中的计时系统
+![1678007253914](https://user-images.githubusercontent.com/31315527/222951660-82598dc4-376d-4eff-bb23-a0934dd3d663.png)
+
+这个now很关键，拿了一个叫pelt时间的玩意
+
+![1678007316226](https://user-images.githubusercontent.com/31315527/222951704-37fc5141-18b3-46d4-8a48-96b2519329d5.png)
+
+对应的其实是rq上的这个`clock_pelt`
+
+![1678007401394](https://user-images.githubusercontent.com/31315527/222951753-cf0411cb-eda8-457a-bfd3-bfcb9e46e836.png)
+
+解释也很形象，**如果cpu跑得慢，那对应的pelt时间也会走得慢**
+
+**freq和capacity的两层缩放也写得很明显**，至于那个idle的情况，后面会讲
+
+这个delta是传进来的，整个调用链如下
+
+```
+update_rq_clock =>
+  update_rq_clock_task =>
+    update_rq_clock_pelt =>
+```
+
+**delta单位是ns，就是真正的用于调度系统的cpu时间**
+
+详见`sched_clock`
+
+![1678007864475](https://user-images.githubusercontent.com/31315527/222952075-38783423-1514-42de-8d33-3f7a6bf38a77.png)
+
+**基于这套体系，pelt负载的增量，都可以直接看这个`clock_pelt`**
+
+
+
+
+
 
 
 
