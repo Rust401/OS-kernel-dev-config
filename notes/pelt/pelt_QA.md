@@ -52,7 +52,7 @@ cfs_rq更新时，变成了实际值
 
 在`___update_load_avg`也不在把load传进去（毕竟`___update_load_sum`算的时候传load没传1，已经把量纲统一好了）
 
-**看样子，类似形状的函数，每个都是特例**
+**看样子，类似形状的函数，每个都是特例，比如`update_rt_rq_load_avg`**
 
 ![1678010439816](https://user-images.githubusercontent.com/31315527/222953782-53666412-cd54-43d4-8da2-6c7cf13362be.png)
 
