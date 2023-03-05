@@ -34,6 +34,28 @@
 
 对se来说，`load_avg`就是一个weight加权后的`runnable_avg`
 
+
+
+se维度的看似很简单，**但cfs_rq维度的看起来却不是这么回事**
+
+![1678009666461](https://user-images.githubusercontent.com/31315527/222953307-80e9ef21-833d-4945-b774-54ab386b594b.png)
+
+se时，load,runnable和running是111
+
+cfs_rq更新时，变成了实际值
+
+* load: cfs_rq上所承载的总的load_weight（假设有3个task，nice分别-1、0、1，那这个值就是1024/1.25 + 1024 + 1024*1.25）
+* runnable: cfs_rq上的`h_nr_running`（真正穿透到每个task的）
+* running: cfs_rq->curr != NULL(cfs_rq上running时间的更新，前提是该cfs_rq上确实有任务在跑)
+
+**此处逻辑未闭环**
+
+在`___update_load_avg`也不在把load传进去（毕竟`___update_load_sum`算的时候传load没传1，已经把量纲统一好了）
+
+**看样子，类似形状的函数，每个都是特例**
+
+![1678010439816](https://user-images.githubusercontent.com/31315527/222953782-53666412-cd54-43d4-8da2-6c7cf13362be.png)
+
 ## pelt体系中的计时系统
 ![1678007253914](https://user-images.githubusercontent.com/31315527/222951660-82598dc4-376d-4eff-bb23-a0934dd3d663.png)
 
