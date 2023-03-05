@@ -25,7 +25,9 @@ dequeue_entity的负载更新流程中，只是做了一次结算，并没有想
 
 **显式迁移时用detach**
 
-另外送一张lb的图
+**那个migrate_task_rq_fair是个重点，migrate不一定是在lb，可能只是在唤醒选核**
+
+另外送一张wake的图
 
 ![e346eb4c66a0fa35072e6b1e9da86ef](https://user-images.githubusercontent.com/31315527/222963439-77119c6b-a7eb-4680-9ae7-4aa5f6dff322.png)
 
