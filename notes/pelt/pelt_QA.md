@@ -1,5 +1,5 @@
 # 一些pelt相关的问答
-## load/runnable/running的又一层次的理解？
+[TOC]## [TOC]load/runnable/running的又一层次的理解？[TOC]
 ![1678240865672](https://user-images.githubusercontent.com/31315527/223600029-bac390d2-6598-48d1-8ee2-6894aa5113c4.png)
 
 看到了这个函数，用于更新blocked_se的负载，那个`0，0, 0`让人感觉有点意思
