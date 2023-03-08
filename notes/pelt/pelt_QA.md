@@ -1,8 +1,3 @@
-- [一些pelt相关的问答](#--pelt-----)
-  * [load/runnable/running的又一层次的理解？](#load/runnable/running的又一层次的理解)
-  * [load/util/runnable_sum和load/util/runnable_avg分别代表什么？](#load/util/runnable_sum和load/util/runnable_avg分别代表什么？)
-  * [pelt体系中的计时系统](#pelt--------)
-
 # 一些pelt相关的问答
 ## load/runnable/running的又一层次的理解？
 ![1678240865672](https://user-images.githubusercontent.com/31315527/223600029-bac390d2-6598-48d1-8ee2-6894aa5113c4.png)
