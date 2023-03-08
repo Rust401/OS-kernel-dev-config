@@ -1,4 +1,27 @@
 # 一些pelt相关的问答
+## load/runnable/running的又一层次的理解？
+![1678240865672](https://user-images.githubusercontent.com/31315527/223600029-bac390d2-6598-48d1-8ee2-6894aa5113c4.png)
+
+看到了这个函数，用于更新blocked_se的负载，那个`0，0, 0`让人感觉有点意思
+
+![1678240969794](https://user-images.githubusercontent.com/31315527/223600263-f2d0e612-7e3e-4d33-9669-2bd3cac4ff9c.png)
+
+这个`load`、`runnable`、`running`对应上面那个`0，0，0`
+
+虽然名字是上有点玄乎，但其实是3个递进的角度
+
+running表示task真正在跑，对应的表征值就是utlization
+
+runnable表示可但没在跑，对应的表征值就是runnable
+
+load范围最大，表示虽然没在跑，但是还是有隐含压力的，对应的表征值就是load
+
+![5e518d7b29f3784f51b24e8ca62b69c](https://user-images.githubusercontent.com/31315527/223602605-62096e97-ee71-4447-a6ed-110226e9398e.png)
+
+对应图如上
+
+所以每次更新se时，都会在load、runnable、running上去传不同的值，然后结算的时候就只会inc特定的量
+
 
 ## load/util/runnable_sum和load/util/runnable_avg分别代表什么？
 
