@@ -6,7 +6,7 @@
 
 这点和walt一样（不如说是walt抄的pelt的实现）
 
-首先`update_load_avg`这个函数，只是对load做结算用的！！！
+首先`update_load_avg`这个函数，只是对各种负载表征值做结算用的！！！
 
 dequeue_entity的负载更新流程中，只是做了一次结算，并没有想把se的pelt的统计从cfs_rq上拿掉的想法
 
