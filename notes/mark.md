@@ -208,5 +208,9 @@ sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.
 
 ## awk skill
 ```sh
+# cut and get avg
 cat file.txt | cut -c150-200 | awk -F'[ :]' '{print $2" "$4}' | awk '{sum+=$1;sum2+=$2}' END{print "info: " sum/NR " " sum1/NR " " sum/sum1}
+
+# sort
+cat dude.txt | awk -F'''{print $19" "$20}' | sort | uniq -c
 ```
