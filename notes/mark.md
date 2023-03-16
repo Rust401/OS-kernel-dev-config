@@ -205,3 +205,8 @@ sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.
 
 ## RCU
 [introduction to RCU](https://www.kernel.org/doc/Documentation/RCU/whatisRCU.txt)
+
+## awk skill
+```sh
+cat file.txt | cut -c150-200 | awk -F'[ :]' '{print $2" "$4}' | awk '{sum+=$1;sum2+=$2}' END{print "info: " sum/NR " " sum1/NR " " sum/sum1}
+```
