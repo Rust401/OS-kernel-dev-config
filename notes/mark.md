@@ -214,3 +214,8 @@ cat file.txt | cut -c150-200 | awk -F'[ :]' '{print $2" "$4}' | awk '{sum+=$1;su
 # sort
 cat dude.txt | awk -F'''{print $19" "$20}' | sort | uniq -c
 ```
+
+## grep
+```sh
+cat dude.txt | grep 'core[0123]'
+```
