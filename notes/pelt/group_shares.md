@@ -34,15 +34,26 @@ linux系统中往往有多个cgroup
 其核心流程也简单，先重计算shares(这玩意和load.weight同量纲)，然后走reweight的流程
 
 ## 核心算法
-核心算法指shares重计算这部分
+核心算法指shares（这是1024*1024那个量纲的）重计算这部分
 
 ![1679494347947](https://user-images.githubusercontent.com/31315527/226931270-8e7c54a0-d2de-4b01-b6dd-68baa34ae484.png)
 
-其实核心公式就是这个：$\frac{load}{tg\\_weight} * tg\\_shares$
+其实核心公式就是这个(load这些细节微调，不太重要，把握好量纲和数量级就行)
 
-$\frac{load}{tg\\_weight}$ 
- 
+$\frac{load}{tg\\_weight} * tg\\_shares$
 
+前半部分算出来一个该cfs_rq的load占整个tg的load的partition
+
+用这个partition去乘上tg_shares以获得整个该cfs_rq理应分得的shares
+
+当然这里得在重复下基础设定
+
+一个`task_group`在每个核上都会有一个`cfs_rq`
+
+所有隶属于这个task_group的cfs_rq的load加起来，应该等于这个task_group的load
 
 ## 作用
-## Reference
+如果把某个task_group的entity改大，那它包含的cfs_rq，都能在时间片的竞争中，获得更多的时间
+
+
+
