@@ -27,8 +27,19 @@ linux系统中往往有多个cgroup
 
 三种情况：**出入队**、**tick时负载更新**、**group的share被改了**
 
+上述3中event，都会触发group的load.weight的更新
 
+![1679494144321](https://user-images.githubusercontent.com/31315527/226930347-52bd8b9c-c490-40b5-8cf2-3764d73f071c.png)
+
+其核心流程也简单，先重计算shares(这玩意和load.weight同量纲)，然后走reweight的流程
 
 ## 核心算法
+核心算法指shares重计算这部分
+
+![1679494347947](https://user-images.githubusercontent.com/31315527/226931270-8e7c54a0-d2de-4b01-b6dd-68baa34ae484.png)
+
+ $\sqrt{3x-1}+(1+x)^2$
+
+
 ## 作用
 ## Reference
