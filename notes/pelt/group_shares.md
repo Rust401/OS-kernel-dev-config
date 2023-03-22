@@ -38,7 +38,7 @@ linux系统中往往有多个cgroup
 
 ![1679494347947](https://user-images.githubusercontent.com/31315527/226931270-8e7c54a0-d2de-4b01-b6dd-68baa34ae484.png)
 
- $\sqrt{3x-1}+(1+x)^2$
+ $frac{a}{b}$
  
  test
 
