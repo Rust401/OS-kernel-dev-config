@@ -11,13 +11,16 @@ mkdir build
 
 cd build
 
-cmake -DLLVM_ENABLE_PROJECTS=clang -DCMAKE_BUILD_TYPE=Release -G "Unix Makefiles" ../llvm
+cmake -DLLVM_ENABLE_PROJECTS=clang -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=/path/to/your/llvm -G "Unix Makefiles" ../llvm
 
 make
 ```
+
+notice the `-DCMAKE_INSTALL_PREFIX`
 
 Note: For subsequent Clang development, you can just run make clang.
 
 # Reference
 [llvm-github](https://github.com/llvm/llvm-project)
+
 [llvm-getting-started](https://clang.llvm.org/get_started.html)
