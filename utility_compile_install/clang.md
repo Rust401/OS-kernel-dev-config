@@ -13,10 +13,16 @@ cd build
 
 cmake -DLLVM_ENABLE_PROJECTS=clang -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=/path/to/your/llvm -G "Unix Makefiles" ../llvm
 
-make
+make -j200
+
+make install
 ```
 
 notice the `-DCMAKE_INSTALL_PREFIX`
+
+bin installed in `/path/to/your/llvm/bin`
+
+lib installed int `/path/to/your/llvm/lib`
 
 Note: For subsequent Clang development, you can just run make clang.
 
