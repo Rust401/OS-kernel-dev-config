@@ -50,6 +50,10 @@ git submodule update --init --recursive
 cd ~/.vim/bundle/YouCompleteMe
 python3 install.py --clangd-completer
 ```
+这步需要gcc-8，如果遇到cmake配置报错，预先指定CC和CXX的版本
+```
+CC=gcc-8 CXX=g++-8 python3 install.py --clangd-completer
+```
 没配代理或者代理速度比较慢的，执行这部大概率报错，原因是clangd太大了，用python的download功能容易中途中断
 ```
 vim ~/.vim/bundle/YouCompleteMe/third_party/ycmd/build.py
