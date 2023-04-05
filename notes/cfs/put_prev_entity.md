@@ -26,6 +26,7 @@
 
 此时的上下cpu，并不会影响`on_rq`的值
 
+如果都走`deactivate_task`这种流程了，`dequeue_task`的流程早就把红黑树清理掉了，自然不需要重复的put、set。
 
 
 
