@@ -4,6 +4,8 @@ from [llvm-github](https://github.com/llvm/llvm-project) select a fit release ta
 git clone https://github.com/llvm/llvm-project.git
 ```
 
+**make sure you checkout to a release branch!!!**
+
 ```
 cd path/to/llvm-project
 
