@@ -27,3 +27,13 @@ global config is here
 ```sh
 ~/.gitconfig
 ```
+
+## 按邮箱统计git提交
+```
+git log --pretty=format:"%h - %ae : %s" | grep <dude>
+```
+
+## 筛选某个author
+```
+git log --author='dude'
+```
