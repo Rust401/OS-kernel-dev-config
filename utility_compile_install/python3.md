@@ -7,17 +7,17 @@ xz-utils tk-dev libffi-dev liblzma-dev python-openssl git
 
 ## Download
 ```sh
-curl -O https://www.python.org/ftp/python/3.9.1/Python-3.9.2.tar.xz
+curl -O https://www.python.org/ftp/python/3.9.16/Python-3.9.16.tar.xz
 ```
 
 ## unzip
 ```
-tar -Jxvf Python-3.9.2.tar.xz
+tar -Jxvf Python-3.9.16.tar.xz
 ```
 
 ## compile
 ```
-./configure --prefix=/home/ruty/bin --enable-optimizations
+./configure --enable-shared --prefix=/home/ruty/bin/python3 LDFLAGS=-Wl,-rpath=/home/ruty/bin/python3/lib
 make
 make install
 ```
