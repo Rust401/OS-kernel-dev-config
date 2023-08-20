@@ -80,7 +80,7 @@ mutex只要知道它的owner是谁，阻塞了谁，top_waiter是谁
 
 这也是一个trival的概念，上面的无非是一层，如果我们把task和mutex的关系多弄几层，这个就很清楚了
 
-![image](https://github.com/Rust401/OS-kernel-dev-config/assets/31315527/38b80573-39ce-4fbb-ba36-a8f5bd025f09)
+![image](https://github.com/Rust401/OS-kernel-dev-config/assets/31315527/6f859fe8-652a-4fe0-be62-4ec0a16c9d66)
 
 这个图估计看一眼也就明白了，task14突然给了一个很高的优先级，优先级先通过mutexE传播到task6，再通过mutexC传播到task0
 
