@@ -32,7 +32,7 @@
 2. futex_pi
 这个是我目前已知最多的应用场景，服务于用户态
 
-## 实现机理
+## 4. 实现机理
 先不看linux上的实现，我们不妨猜一下，这种逻辑结构要如何设计
 
 先从task的角度出发（毕竟这是最要提升优先级的对象），得先知道：
@@ -73,7 +73,7 @@ mutex只要知道它的owner是谁，阻塞了谁，top_waiter是谁
 
 这是个trival的过程
 
-## 抽象
+## 5. 抽象
 其实上面已经抽象的差不多了，这里顶多再引入一个概念：
 
 **PI_CHAIN**
@@ -86,5 +86,43 @@ mutex只要知道它的owner是谁，阻塞了谁，top_waiter是谁
 
 标红色的那个，就是一条**PI_CHAIN**
 
-## 关键数据结构
-## 关键代码路径
+## 6. 关键数据结构
+1. `rt_mutex`
+   
+这就是那个神奇的锁的本体
+
+
+<img width="822" alt="1692509958356" src="https://github.com/Rust401/OS-kernel-dev-config/assets/31315527/a099d1f3-829e-47e8-9f80-051dc1dc07f9">
+* waiter就是所有阻塞在这这个mutex上的task
+* owner就是mutex当前被持有的那个哥们儿
+
+2. `rt_mutex_waiter`
+
+讲道理，**这个才是最难理解的那个数据结的，它是task和mutex之间的桥梁**，一个task想要阻塞在一个mutex上，就需要先把自己包装成waiter
+
+<img width="840" alt="1692510269159" src="https://github.com/Rust401/OS-kernel-dev-config/assets/31315527/74b113a9-5d82-4d1e-9800-d14b4a8822d6">
+
+* tree_entry是waiter挂在mutex的waiter上用的钩子
+* pi_tree_entry是waiter挂在阻塞它的task所拥有的树上的钩子
+* task_struct自然是这个waiter的本体
+
+3. `task_struct`
+
+<img width="775" alt="1692509704132" src="https://github.com/Rust401/OS-kernel-dev-config/assets/31315527/19441b89-0fe2-414c-aaf7-52a22c538f00">
+
+* **pi_waiter**指所有被该task所阻塞的waiter
+* 所有waiter里面的topwaiter的task_struct
+* 阻塞该task的task
+
+## 7. 关键代码路径
+这个优先级放低吧，看到好的再贴出来
+
+## Reference
+
+[wowo](http://www.wowotech.net/kernel_synchronization/futex.html)
+
+[zhihu](https://zhuanlan.zhihu.com/p/372146187)
+
+[kernel doc](https://docs.kernel.org/locking/rt-mutex-design.html)
+
+
