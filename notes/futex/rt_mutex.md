@@ -93,6 +93,7 @@ mutex只要知道它的owner是谁，阻塞了谁，top_waiter是谁
 
 
 <img width="822" alt="1692509958356" src="https://github.com/Rust401/OS-kernel-dev-config/assets/31315527/a099d1f3-829e-47e8-9f80-051dc1dc07f9">
+
 * waiter就是所有阻塞在这这个mutex上的task
 * owner就是mutex当前被持有的那个哥们儿
 
