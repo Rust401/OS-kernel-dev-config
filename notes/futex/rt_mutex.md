@@ -51,11 +51,27 @@
 这样整个逻辑就很清晰了，系统中就两个重要角色：`task`和`mutex`。
 
 task只需要知道它owner了哪几个mutex即可
+
 mutex只要知道它的owner是谁，阻塞了谁，top_waiter是谁
 
 这里给一张原始思路图
 
+<img width="729" alt="1692507467433" src="https://github.com/Rust401/OS-kernel-dev-config/assets/31315527/bda7dd06-d034-4bce-a7a2-439199747d22">
 
+先**不考虑最后实现的优雅及效率**，trival的角度来看，这个逻辑图便应如此
+
+* task只要知道持有哪些mutex就好了
+* mutex自己知道谁被自己block了，并且这些block的人中，优先级最高的是谁
+
+途中的话，task持有了mutexA、B、C， topwaiter都已经指出来了。其中C的topwaiter的能力是最强的
+
+所以task应该去把优先级对标成C的topwaiter的优先级
+
+当然这个关系应该是可以支持实时更新的
+
+假设有一个优先级比C的top-waiter还要高的东西阻塞在mutexC上了，那mutexC的topwaiter就得相应更新，然后顺带着mutexC的owner也应该受到波及，进而更新优先级
+
+这是个trival的过程
 
 ## 抽象
 ## 关键数据结构
