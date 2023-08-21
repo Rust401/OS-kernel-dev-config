@@ -19,3 +19,8 @@ pi版本的futex，底层借用的是`rt_mutex`，这样就不用自己去实现
 * 一次常规的futex阻塞的操作，现在要锁两遍（futex锁以及rt_mutex锁）
 * 一次常规的futex唤醒操作，现在要解锁两遍（rt_mutex的唤醒以及futex_q的唤醒）
 
+这边不得不提一个重点：**上层的首次发生未持锁阻塞的时候(futex_pi_lock)，才会有对应的rt_mutex对象生成**
+
+整个步骤分成两部：
+* 
+
