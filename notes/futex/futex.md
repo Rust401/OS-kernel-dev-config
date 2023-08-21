@@ -56,11 +56,30 @@ futex(fast userspace mutex) 是一种用来实现用户态的mutex的机制
 1. 用户态锁要在内核中有对应对象
 2. 有wait接口把自己挂在某个资源的等待队列(block)
 3. 释放资源时要wake对应的队列(wake)
+
+剩下的东西，就很琐碎了
    
 ## 6. 关键数据结构
 
+那现在看下具体实现吧
+
+![1692602809953](https://github.com/Rust401/OS-kernel-dev-config/assets/31315527/47638fb4-55fe-4deb-8c72-528cb25c4823)
+
+* 那个`__futex_data`就是内核里的锁array，里面存了所有的锁对象（这里面叫futex_hash_bucket）
+
+* 然后这个`futex_hash_bucket`就是futex锁的对象，里面有waiters的数量以及waiters需要呆的链表
+
+* `futex_q`就是waiter(task）的封装，里面的`pi_state`和`rt_waiter`比较关键，这是跟futex_pi（关联rt_mutex实现）
+
+其实futex如果不考虑priority inheritence的话，还是个蛮简单的实现
+
+为了借助rt_mutex实现pi的话，大脑会稍微痛苦一点
 
 ## 7. 关键代码路径
+
+`futex_wait`和`futex_wake`有空看下吧
+
+真的需要分析了再看，现在不值当
 
 
 ## Reference
