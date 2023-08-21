@@ -15,8 +15,15 @@ futex(fast userspace mutex) 是一种用来实现用户态的mutex的机制
 
 ## 3. 应用场景
 
+花式的pthread_mutex相关的场景
+
+当然绕过pthread，自己基于futex去封装同步机制也没问题
 
 ## 4. 实现机理
+
+很trival的来看，用户态的锁，需要对应到内核态的锁
+
+内核态的锁上，挂着各种
 
 
 ## 5. 抽象
