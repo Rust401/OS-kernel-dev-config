@@ -7,3 +7,5 @@
 ## 用法
 ## 灵魂提问
 ## 机制
+## Reference
+[whatisRCU](https://www.kernel.org/doc/html/next/RCU/whatisRCU.html)
