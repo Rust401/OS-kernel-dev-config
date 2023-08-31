@@ -49,6 +49,11 @@ copy-update，可以认为**更新之前需要先复制**
 * Updater: 负责更新数据的
 * Reclaimer(Remover): 负责把更新完的旧数据回收的
 
+还有两个关键的概念：
+
+* Grace Period(GP): 新数据发布之后，到能够安全进行老数据的reclaim之间的阶段
+* Quiescent State(QS): 不在临界区内，并且可以用来确定不在临界区内的时间
+
 ## 用法
 ## 灵魂提问
 ## 机制
