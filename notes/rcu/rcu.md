@@ -25,16 +25,22 @@ copy-update，可以认为**更新之前需要先复制**
 
 所以
 
-对于reader来说，就一件事：读！
+对于`reader`来说，就一件事：读！
 
-对于writer来说，需要经历以下几个阶段
+对于`writer`来说，需要经历以下几个阶段
 * copy
 * update
 * publish
 
-至于最后的老数据回收阶段，可以让writer做，也可以随便找个人做，这个无所谓 
+至于最后的老数据回收阶段，可以让writer做，也可以随便找个人做，这个无所谓，我们可以叫这个人`reclaimer`
 
 这个过程，叫做**reclaim**
+
+这里面还有一些点需要澄清：
+1. reader和reader之间是可以并行的
+2. reader和writer之间是可以并行的
+3. writer和writer之间是要加锁的
+4. writer和reclaimer之间是可以并行
 
 ## 一些抽象的概念
 整个系统中有3个角色
