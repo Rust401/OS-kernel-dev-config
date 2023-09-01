@@ -1,4 +1,4 @@
-![34c29a647d5abcb10a1f518ccdeb3cc](https://github.com/Rust401/OS-kernel-dev-config/assets/31315527/d785cc4c-afb6-4971-8054-6653bc6be6cb)# 一些有关rcu的碎碎念
+# 一些有关rcu的碎碎念
 
 ## 历史
 linux 2.5.x上主线的，主要为了解决read-mostly场景的性能
