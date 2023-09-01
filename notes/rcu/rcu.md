@@ -63,6 +63,14 @@ copy-update，可以认为**更新之前需要先复制**
 * Removal阶段的`rcu_assign_pointer`很关键。在assign之前发生的`rcu_dereference`，都会读到更新前的数据，assign之后发生dereference，都会读到新数据。
 * 真正对老数据进行删除之前，要调用`synchronize_rcu`，这个函数的作用是等待已经进入临界区的readers都离开了临界区，其实它的名字叫`waiting_readers_to_leave`更合适一些，数然后这段时期就是Grace Period。
 * 只要GP一过（可以看下图中灰色粗边框的方块），就没有任何线程持有对老数据的引用了，因此可以很安全的把老数据释放掉（其实对于reader来说，具体什么时候真的把老数据回收，早一点，晚一点，都不care，reader关心的是什么时候rcu_assign_pointer发生）
+
+因此，**一个理想的rcu**的行为应该如下：
+* 作为reader，要么读到新数据，要么读到老数据，区分点在于**读这个动作和updater的publish动作的先后顺序**
+* 数据publish之后，reader就没法再读到老的数据了，**当所有所针对老数据的reader都完成了读动作，立马将老数据释放掉**
+
+当然理想情况可以这么做
+
+但实际，放到内核里的实现，就不是这么回事了
   
 ## 用法
 ## 灵魂提问
