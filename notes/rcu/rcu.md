@@ -1,4 +1,4 @@
-# 一些有关rcu的碎碎念
+![34c29a647d5abcb10a1f518ccdeb3cc](https://github.com/Rust401/OS-kernel-dev-config/assets/31315527/d785cc4c-afb6-4971-8054-6653bc6be6cb)# 一些有关rcu的碎碎念
 
 ## 历史
 linux 2.5.x上主线的，主要为了解决read-mostly场景的性能
@@ -52,8 +52,18 @@ copy-update，可以认为**更新之前需要先复制**
 还有两个关键的概念：
 
 * Grace Period(GP): 新数据发布之后，到能够安全进行老数据的reclaim之间的阶段
-* Quiescent State(QS): 不在临界区内，并且可以用来确定不在临界区内的时间
+* Quiescent State(QS): 不在临界区内，并且可以用来确定不在临界区内的时间（在linux内核中，通常认为，发生了一次调度，或者tick里面发现此时处于用户态，就可以判定某个cpu经过了一次Quiescent State）
 
+![34c29a647d5abcb10a1f518ccdeb3cc](https://github.com/Rust401/OS-kernel-dev-config/assets/31315527/23df6db6-9e9d-4f92-83cf-e47bcac1dbdd)
+
+这边这张图，很精髓地从high level描述了rcu究竟怎么运作的
+
+* 上面有4个reader，每个reader随着时间推移在做各种read操作，时间长短不一
+* 由于同步有个updater在更新，所以reader可能会读到两种不同的东西（灰色或者白色，灰色的不论边框粗细，其实都是读到一个东西，修改前的，白色是修改后的）
+* Removal阶段的`rcu_assign_pointer`很关键。在assign之前发生的`rcu_dereference`，都会读到更新前的数据，assign之后发生dereference，都会读到新数据。
+* 真正对老数据进行删除之前，要调用`synchronize_rcu`，这个函数的作用是等待已经进入临界区的readers都离开了临界区，其实它的名字叫`waiting_readers_to_leave`更合适一些，数然后这段时期就是Grace Period。
+* 只要GP一过（可以看下图中灰色粗边框的方块），就没有任何线程持有对老数据的引用了，因此可以很安全的把老数据释放掉（其实对于reader来说，具体什么时候真的把老数据回收，早一点，晚一点，都不care，reader关心的是什么时候rcu_assign_pointer发生）
+  
 ## 用法
 ## 灵魂提问
 ## 机制
