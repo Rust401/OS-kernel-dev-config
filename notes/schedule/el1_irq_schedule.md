@@ -1,5 +1,5 @@
 ## 中断返回的调度
-调度有很多时机，比较常见的有syscall返回（通常为内核态返回用户态`ret_to_user`），**中断返回**等
+调度有很多时机，比较常见的有syscall返回[通常为内核态返回用户态ret_to_user](https://github.com/Rust401/OS-kernel-dev-config/blob/main/notes/schedule/ret_to_user.md),**中断返回**等
 
 但中断返回其实是一个比较难理解的事，尤其是这个**中断发生在内核态**时
 
