@@ -17,6 +17,8 @@
 
 关联的数据结构可以参考这个，如果对源码感兴趣的情况下
 
+具体实现可以看`kernel/sysctl.c`下面的numa_balancing
+
 ## Reference
 
 [kernel_doc](https://docs.kernel.org/staging/static-keys.html#:~:text=Static%20keys%20allows%20the%20inclusion,and%20a%20code%20patching%20technique.)
