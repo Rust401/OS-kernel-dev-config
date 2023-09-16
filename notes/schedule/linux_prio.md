@@ -21,3 +21,7 @@ prio是它通过各种手段临时混到的prio，属于一种boost行为，没�
 可以去看下如何判断rt_rq是否throttle
 
 这里有个经典的图，可以扩充
+
+![image](https://github.com/Rust401/OS-kernel-dev-config/assets/31315527/ae4bb1da-ff94-4194-8b84-8c3fbed68aaf)
+
+其实动态优先级和normal_prio的分布是一样的，只是动态优先级是真正和调度行为绑定的那个值
