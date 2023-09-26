@@ -5,9 +5,9 @@
 
 
 ## checkout to target branch
-···sh
+```sh
 git checkout -b <local_branch_name> origin/xxxxxx
-···
+```
 
 example:
 ```sh
