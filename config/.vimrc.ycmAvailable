@@ -49,3 +49,6 @@ nnoremap <leader>jdc :YcmCompleter GoToDeclaration<CR>
 nmap <leader>yfw <Plug>(YCMFindSymbolInWorkspace)
 let g:ycm_auto_hover=''
 let g:ycm_always_populate_location_list = 1
+
+"-------------------setting for vim-------------
+au BufReadPost * if line("'\"") > 0|if line("'\"") <= line("$")|exe("norm '\"")|else|exe "norm $"|endif|endif
