@@ -34,7 +34,16 @@ cfs组调度的代码，一直以来，都是比较难读懂的（即使它的�
 
 随后，如果它所归属的cfs_rq还没有on_rq，那就继续来一波
 
-如果cfs_rq已经是挂在rq上的状态，那就跳出第一个循环，不用再重复入队了，原地更新cfs_group就好了
+如果cfs_rq已经是挂在rq上的状态，那就跳出第一个循环，不用再重复入队了，走第二个循环原地更新cfs_group就好了
+
+这里插播一下enqueue_entity到底干了啥
+
+![1695804444988](https://github.com/Rust401/OS-kernel-dev-config/assets/31315527/f69cf964-aa15-4923-933a-98b3e29f564d)
+
+* **1里面只会对group_se更新，（其实只会）更新了group_se的weight，并不会向上传递**，毕竟这个时候压根没在cfs_rq上
+* 2里面会把se的weight加到cfs_rq上，因为一会要真正插到红黑树上，所以先把lw这些加上
+* 3是真正插红黑树的过程
+
 
 
 
