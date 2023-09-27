@@ -73,11 +73,42 @@ cfs组调度的代码，一直以来，都是比较难读懂的（即使它的�
 
 两个循环也是一样用法的
 
+**顺便再来看下task_tick_fair**
+
+![1695806276034](https://github.com/Rust401/OS-kernel-dev-config/assets/31315527/a5e94795-3a4d-4045-9934-71017ef0dd5a)
+
+![1695806314974](https://github.com/Rust401/OS-kernel-dev-config/assets/31315527/695ec01b-390e-4532-ab4d-2f05b305b1da)
+
+这个就很均一了，没有带上带下的苦恼，一视同仁
+
 ## 核心归纳
 * 进出队时两个for_each_sched_entity，是用来区别对待on_rq与否的se的
 * update_cfs_group函数的核心是reweight_entity，而reweight的动作其实会因group_se是否on_rq而有区别，on_rq的情况下需要传导到cfs_rq上
 * enqueue_entity中，通过update_cfs_group更新se，再account_entity_enqueue是极度合理的，前者肯定不是on_rq的，因此更新完统一加就完事
 * dequeue其实就是镜像，只不过on_rq变成了cfs_rq->load.weight是否为零
+
+## 随便再说些装逼的话
+思路意识流，无非效率低点，最后也能归纳出来一些金句
+
+很多东西，多看几遍，里面的内在联系也逐渐显露出来了
+
+没有任何事情，是可以轻轻松松掌握并且装逼的
+
+回想起来，cfs的组调度，是如此的trival
+
+只能说
+
+**人生毫无意义**
+
+很多东西，先有，再精，没什么毛病
+
+写这种小文章也是，别纠结那些格式，reference啥的
+
+只有真正懂了，才能洋洋洒洒下笔如有神的写下来
+
+这种从打字的轻快程度都能感受到
+
+每当你懂了之后，再去看那些不懂的受折磨，那是何其的爽
 
 
 
