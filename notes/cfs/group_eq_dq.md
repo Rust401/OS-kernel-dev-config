@@ -86,6 +86,7 @@ cfs组调度的代码，一直以来，都是比较难读懂的（即使它的�
 * update_cfs_group函数的核心是reweight_entity，而reweight的动作其实会因group_se是否on_rq而有区别，on_rq的情况下需要传导到cfs_rq上
 * enqueue_entity中，通过update_cfs_group更新se，再account_entity_enqueue是极度合理的，前者肯定不是on_rq的，因此更新完统一加就完事
 * dequeue其实就是镜像，只不过on_rq变成了cfs_rq->load.weight是否为零
+* se所属的cfs_rq，是会变更的，典型场景加退组/set_task_cpu
 
 ## 随便再说些装逼的话
 思路意识流，无非效率低点，最后也能归纳出来一些金句
