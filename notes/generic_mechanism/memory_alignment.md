@@ -1,4 +1,4 @@
-# 有关内存对齐
+## 有关内存对齐
 <img width="774" alt="1697469983070" src="https://github.com/Rust401/OS-kernel-dev-config/assets/31315527/cc222f83-1af2-4019-b2b0-7d52709db284">
 
 mutex的代码里面看到这句话，有点好奇
@@ -14,3 +14,17 @@ mutex的代码里面看到这句话，有点好奇
 **整除就是没有余数呀，余数就是后面6bit呀**
 
 所以，归根结底，task_struct自己躺的位置比较特殊。
+
+## 顺便随便找两张图解释下内存对齐
+
+![image](https://github.com/Rust401/OS-kernel-dev-config/assets/31315527/38e1a506-cfb6-48d9-9204-3dffe6e24264)
+
+![image](https://github.com/Rust401/OS-kernel-dev-config/assets/31315527/5f26c8fa-64c1-4e06-9165-2f0c3bfd0a8f)
+
+要用的时候研究下吧，直接打印也可以
+
+主要是让cpu用尽可能少的次数捞到需要的数据
+
+
+
+
