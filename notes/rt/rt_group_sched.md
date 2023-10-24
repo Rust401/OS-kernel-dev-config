@@ -31,7 +31,7 @@ rt_bw的充值逻辑，其实是最令人confuse的
 
 第一个是很trival的，第二个可能有点令人confuse
 
-先从第一个开始看
+#### 先从第一个开始看
 
 <img width="671" alt="1698162072754" src="https://github.com/Rust401/OS-kernel-dev-config/assets/31315527/2b47b8a6-2bc7-47d2-b1fe-4a7955f03474">
 
@@ -52,6 +52,47 @@ rt_bw的充值逻辑，其实是最令人confuse的
 然后最关键的其实是`sched_rt_period_timer`，我们尊贵的rt_period_timer的回调
 
 <img width="811" alt="1698163198521" src="https://github.com/Rust401/OS-kernel-dev-config/assets/31315527/35eacdbc-c2be-4d16-9a92-be7818524ea9">
+
+这个for贼有意思
+
+**由于回调发生的前提往往是timer已经到时间了，到时间了往往意味着默认的overrun**
+
+这里面的hrtimer_forward_now的意思是：
+* 如果已经到时间了，就把下一次到期时间加上一个period
+* 如果没到时间，那就直接返回（当然这次forward加时间的动作也会失败）
+
+当然绝大多数情况，肯定会到时间的
+
+定时器加好之后，就乖乖通过`do_sched_rt_period_timer`给哪些可怜的rt_rq做一下replensh
+
+另外通过一系列逻辑判断下是否符合rt idle的条件
+
+`do_sched_rt_period_timer`里面逻辑比较长，但是照样trival：
+1. 更新下rt_runtime（万一这时候bw变了对吧）
+2. balance一下rt_runtime（人家那边借一下）
+3. 把rt_time清理一下（所谓的充值，是把前面已经花了的钱，一笔勾销）
+4. 然后做些充值后的收尾工作（比如把rt_rq放回上级队列）
+
+最后返回下idle的判定
+
+#### 再看第二个吧，就是那个exceed之后
+<img width="776" alt="1698164030844" src="https://github.com/Rust401/OS-kernel-dev-config/assets/31315527/8bf05256-fb60-40c0-a932-7424b4a8384e">
+
+其实rt已经在跑了，这时候这个period大概率是active的，所以绝大多数情况，这边根本不会走进去
+
+<img width="753" alt="1698164109144" src="https://github.com/Rust401/OS-kernel-dev-config/assets/31315527/1078d464-7af8-420c-af10-03f720126d72">
+
+因此这里有段注释需要仔细看下：
+意思是dl会吃掉rt的时间，但是并不会给rt充钱，就像渣男玩人家老婆，最后还得老实人接盘（老婆的爱是有限的，给了渣男玩了，老实人可能连插入的机会都没有，结果这个老婆的日常保养，都要老实人来）
+
+反正就是老实人定期为渣男买下单
+
+反正整个过程很trival，挺好理解的，有手就行。
+
+
+
+
+
 
 
 
