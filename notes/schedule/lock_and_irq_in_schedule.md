@@ -52,6 +52,16 @@ task_rq_lock是先pi_irq_save再加普通的rq_lock的
 
 然后这个put/set，本质上的行为，是**在cpu上跑**和**回去排队**之间的变更，针对于rt这种情况，那无非是对pushable_task做一个变更
 
+噢，这里多说一句，`__sched_setscheduler`本质上是一个大号的`set_user_nice`
+
+前面是一堆check流程，核心流程一样离不开task_rq_lock，关中断关抢占去修改task的调度属性
+
+不过插个题外话，尾巴上的rt_mutex_adjust_pi可是要在锁外去干的
+
+![1698410009676](https://github.com/Rust401/OS-kernel-dev-config/assets/31315527/ecd1b1ab-7d91-4bcd-ae2f-d283b80f4fa0)
+
+**中断上下文其实是不允许pi类型的优先级设置的（why？）**
+
 
 
 
