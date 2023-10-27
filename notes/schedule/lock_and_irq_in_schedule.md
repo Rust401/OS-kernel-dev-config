@@ -34,6 +34,36 @@ task_tick这类的都是持了rq锁做的，里面不会发生调度，但会发
 
 抢占式调度也是类似的，显然得关抢占
 
+但调度里面貌似没持pi锁？但是优先级修改那种函数，都是先pi锁再rq锁的，所以拿了rq锁再持pi锁就会变成一个笑话
+
+## 常见的set系列函数
+
+![1698408850631](https://github.com/Rust401/OS-kernel-dev-config/assets/31315527/8f5fbb97-a774-41e4-abb4-2cd99f978270)
+
+我指的是这些，最trival的，拿set_user_nice为例
+
+![1698409027305](https://github.com/Rust401/OS-kernel-dev-config/assets/31315527/ee1e65f8-a66d-4f26-94e2-6a880e2415a6)
+
+task_rq_lock是先pi_irq_save再加普通的rq_lock的
+
+所以这个流程里面又 关中断+关抢占的 可以说是安全的不得了（看样子task_rq_lock的情况下可以随意dequeu/enqueue以及set/put?）
+
+**优先级变更的本质是，摘下来改造改造，再放回去**
+
+然后这个put/set，本质上的行为，是**在cpu上跑**和**回去排队**之间的变更，针对于rt这种情况，那无非是对pushable_task做一个变更
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
