@@ -15,3 +15,25 @@
 
 如果是普通模式，就挂在raised_list上，表明我们需要立马处理
 
+随后调用smp_cross_call，发送一个IPI_IRQ_WORK给对应核
+
+![1698405490426](https://github.com/Rust401/OS-kernel-dev-config/assets/31315527/04718495-2fef-4a4f-9be3-b9f1c6d2d81c)
+
+然后就是gic的事情了，发一个中断给本核
+
+随后本核在开中断的上下文去响应中断处理
+
+![1698405593122](https://github.com/Rust401/OS-kernel-dev-config/assets/31315527/ded0a3b2-0122-4d29-863e-8a1b28492cd9)
+
+接下来，把两个list上的irq的func处理下
+
+![1698405692875](https://github.com/Rust401/OS-kernel-dev-config/assets/31315527/a3785f3e-bda0-4e06-8602-89b3d43cfed1)
+
+轻松愉快
+
+
+
+
+
+
+
