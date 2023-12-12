@@ -3,6 +3,18 @@
 
 <img width="551" alt="1702393322962" src="https://github.com/Rust401/OS-kernel-dev-config/assets/31315527/04bcd867-17eb-4370-84a6-6fd914da1686">
 
+交互图也看下
+
+<img width="592" alt="1702394067158" src="https://github.com/Rust401/OS-kernel-dev-config/assets/31315527/1a4f986a-cc55-4ab5-b0b2-1c902b0345f1">
+
+这个BC和BR有点意思
+
+BC是binder_command的意思，用于用户态发给内核态
+
+BR是binder_reply的意思，用于内核态发回给用户态（这里面咋通信？cpunetlink？）
+
+
+
 
 首先binder本质上跟个http-server很像，都是C-S模式的，内部都有个线程池
 
