@@ -1,4 +1,9 @@
 ## binder跟调度的紧密联系
+先看一张binder神图
+
+<img width="551" alt="1702393322962" src="https://github.com/Rust401/OS-kernel-dev-config/assets/31315527/04bcd867-17eb-4370-84a6-6fd914da1686">
+
+
 首先binder本质上跟个http-server很像，都是C-S模式的，内部都有个线程池
 
 http-server么接收到请求，拉起个小弟处理下
