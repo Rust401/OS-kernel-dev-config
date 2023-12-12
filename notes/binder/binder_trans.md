@@ -29,6 +29,9 @@ oneway跟thread一定是冲突的
 
 上下文很安全，直接也不用irq，直接干就完了。
 
+## Reference
+[binder好文](https://wangkuiwu.github.io/2014/09/01/Binder-Introduce/)
+
 
 
 
