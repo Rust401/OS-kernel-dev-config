@@ -31,6 +31,7 @@ oneway跟thread一定是冲突的
 
 ## Reference
 [binder好文](https://wangkuiwu.github.io/2014/09/01/Binder-Introduce/)
+[binder数据结构参考](https://wangkuiwu.github.io/2014/09/02/Binder-Datastruct/)
 
 
 
