@@ -7,6 +7,15 @@
 
 <img width="592" alt="1702394067158" src="https://github.com/Rust401/OS-kernel-dev-config/assets/31315527/1a4f986a-cc55-4ab5-b0b2-1c902b0345f1">
 
+当然，如果把这个交互图和调度结合
+
+<img width="1430" alt="64258820d29c0afa66e93d97accf41a" src="https://github.com/Rust401/OS-kernel-dev-config/assets/31315527/e547cec1-c263-406b-8fcb-f0b1be5562cf">
+
+想必网上也是独此一张
+
+
+
+
 这个BC和BR有点意思
 
 BC是binder_command的意思，用于用户态发给内核态
