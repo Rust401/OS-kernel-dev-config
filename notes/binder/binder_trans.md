@@ -1,4 +1,5 @@
-## binder跟调度的紧密联系
+## binder跟调度的紧密联系（看到这章，我只能说你太幸运了）
+
 先看一张binder神图
 
 <img width="551" alt="1702393322962" src="https://github.com/Rust401/OS-kernel-dev-config/assets/31315527/04bcd867-17eb-4370-84a6-6fd914da1686">
@@ -13,8 +14,31 @@
 
 想必网上也是独此一张
 
+仔细想下，为啥binder要用同步唤醒
+
+<img width="1401" alt="a1f6636f2430ed29cc5bccd8d68153b" src="https://github.com/Rust401/OS-kernel-dev-config/assets/31315527/27485651-834a-40a5-bedd-7d68d242bc22">
+
+有没有一种恍然大悟的感觉
+
+让被唤醒的worker，继续在client的cpu上跑
+
+**这样子整个业务逻辑连续了，虽然中间context-switch，换了个进程来执行**
+
+这种感觉，就好似，**同一个调度context，上面用了不同进程context**
+
+但这只是感觉，实际上里面还是有调度的
+
+但如果我们能把这次调度简化掉（只切换地址空间，不切换调度实体），我们是不是就发明了一种新的ipc机制
+
+企图去简化context-switch和lb等ping-pang带来的微观开销
+
+从而企图达成端到端的收益
+
+这就是所谓的**调度上下文和地址空间分离**吧
 
 
+
+##  低端理解，懒得删了
 
 这个BC和BR有点意思
 
