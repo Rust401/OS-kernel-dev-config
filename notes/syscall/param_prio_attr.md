@@ -15,5 +15,34 @@
 
 `sched_setattr`啥都改
 
+说到这里，不得不说下`set_user_nice`
+
+这个和上面那3个哥们儿没有同流合污
+
+nice入口在libc
+
+<img width="585" alt="1705498485267" src="https://github.com/Rust401/OS-kernel-dev-config/assets/31315527/520d6b3c-a0ef-424d-825e-23981b974fd1">
+
+里面本质是个syscall
+
+<img width="601" alt="1705498667860" src="https://github.com/Rust401/OS-kernel-dev-config/assets/31315527/56680b72-7f71-4643-9c61-c4f6e2fdfa0d">
+
+<img width="801" alt="1705498756277" src="https://github.com/Rust401/OS-kernel-dev-config/assets/31315527/dda7bbe4-f3df-47bd-a409-b5bbbb0e456d">
+
+这玩意竟然有tid，grp，uid维度的，牛逼
+
+里面就是个set_user_nice
+
+就不多阐述了
+
+
+
+
+
+
+
+
+
+
 
 
